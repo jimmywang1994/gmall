@@ -8,9 +8,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>gmall-eureka-server</artifactId>
-
     <properties>
         <!-- 设定Java的版本 -->
         <java.version>1.8</java.version>
@@ -19,17 +16,33 @@
         <maven-jar-plugin.version>3.1.0</maven-jar-plugin.version>
     </properties>
 
+    <artifactId>gmall-boot-admin</artifactId>
+
     <dependencies>
-        <!--注册中心-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-        </dependency>
-        <!-- spring boot admin client坐标 -->
+        <!-- spring boot admin坐标 -->
         <dependency>
             <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
             <version>${admin.version}</version>
         </dependency>
+        <!-- spring boot web启动器 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>cn.edu.ccut.SpringBootAdminApp</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
 </project>

@@ -14,9 +14,11 @@
     <description>Demo project for Spring Boot</description>
 
     <properties>
+        <!-- 设定Java的版本 -->
         <java.version>1.8</java.version>
+        <admin.version>2.0.6</admin.version>
+        <!-- 解决pom.xml首行报错 -->
     </properties>
-
     <dependencies>
 
         <dependency>
@@ -84,6 +86,12 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <!-- spring boot admin client坐标 -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>${admin.version}</version>
         </dependency>
     </dependencies>
 

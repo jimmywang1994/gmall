@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="gmall-plugin" />
+        <module name="gmall-boot-admin" />
         <module name="gmall-eureka-server" />
         <module name="gmall-user" />
         <module name="gmall-user-web" />
@@ -22,6 +23,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="common-util" options="" />
       <module name="gmall-api" options="-parameters" />
+      <module name="gmall-boot-admin" options="-parameters" />
       <module name="gmall-eureka-server" options="-parameters" />
       <module name="gmall-plugin" options="-parameters" />
       <module name="gmall-user" options="-parameters" />

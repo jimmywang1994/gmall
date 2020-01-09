@@ -19,6 +19,7 @@
         <module>gmall-api</module>
         <module>gmall-user-web</module>
         <module>gmall-eureka-server</module>
+        <module>gmall-boot-admin</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
