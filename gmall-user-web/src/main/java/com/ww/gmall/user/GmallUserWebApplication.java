@@ -1,17 +1,14 @@
 package com.ww.gmall.user;
 
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 @EnableDubbo
-@MapperScan("com.ww.gmall.user.mapper")
-@SpringBootApplication
-public class GmallUserApplication {
-
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+public class GmallUserWebApplication {
     public static void main(String[] args) {
-        SpringApplication.run(GmallUserApplication.class, args);
+        SpringApplication.run(GmallUserWebApplication.class);
     }
-
 }

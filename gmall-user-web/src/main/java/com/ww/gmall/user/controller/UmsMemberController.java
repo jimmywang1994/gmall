@@ -1,11 +1,11 @@
 package com.ww.gmall.user.controller;
 
 
-import com.ww.gmall.service.UmsMemberService;
 import com.ww.gmall.bean.UmsMember;
+import com.ww.gmall.service.UmsMemberService;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
 @RequestMapping("/user/ums-member")
 public class UmsMemberController {
 
-    @Autowired
+    @Reference
     UmsMemberService umsMemberService;
 
     @RequestMapping("allMembers")

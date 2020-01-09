@@ -13,10 +13,13 @@
         <nekohtml.version>1.9.20</nekohtml.version>
         <xml-apis.version>1.4.01</xml-apis.version>
         <batik-ext.version>1.9.1</batik-ext.version>
+        <dubbo.version>2.7.3</dubbo.version>
+        <curator.version>4.2.0</curator.version>
         <jsoup.version>1.11.2</jsoup.version>
         <httpclient.version>4.5.5</httpclient.version>
         <commons-lang3.version>3.7</commons-lang3.version>
         <jest.version>5.3.3</jest.version>
+        <sharding-version>2.0.3</sharding-version>
         <jna.version>4.5.1</jna.version>
         <beanUtils.version>1.9.3</beanUtils.version>
         <jedis.version>2.9.0</jedis.version>
@@ -29,6 +32,7 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
             <version>${mybatis-plus-version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -50,28 +54,28 @@
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-spring-boot-starter</artifactId>
-            <version>2.7.3</version>
+            <version>${dubbo.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo</artifactId>
-            <version>2.7.3</version>
+            <version>${dubbo.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.curator</groupId>
             <artifactId>curator-framework</artifactId>
-            <version>4.2.0</version>
+            <version>${curator.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.curator</groupId>
             <artifactId>curator-recipes</artifactId>
-            <version>4.2.0</version>
+            <version>${curator.version}</version>
         </dependency>
         <dependency>
             <groupId>io.shardingjdbc</groupId>
             <artifactId>sharding-jdbc-core</artifactId>
-            <version>2.0.3</version>
+            <version>${sharding-version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -141,5 +145,4 @@
             <version>${beanUtils.version}</version>
         </dependency>
     </dependencies>
-
 </project>

@@ -12,6 +12,9 @@
         <module>gmall-user</module>
         <module>gmall-plugin</module>
         <module>gmall-api</module>
+        <module>common-util</module>
+        <module>web-util</module>
+        <module>gmall-user-web</module>
     </modules>
 
 
