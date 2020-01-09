@@ -1,6 +1,6 @@
 package com.ww.gmall.user.mapper;
 
-import com.ww.gmall.user.bean.UmsRole;
+import com.ww.gmall.bean.UmsRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

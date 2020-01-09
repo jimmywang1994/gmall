@@ -1,8 +1,8 @@
 package com.ww.gmall.user.service.impl;
 
-import com.ww.gmall.user.bean.UmsMemberReceiveAddress;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.ww.gmall.bean.UmsMemberReceiveAddress;
 import com.ww.gmall.user.mapper.UmsMemberReceiveAddressMapper;
-import com.ww.gmall.user.service.UmsMemberReceiveAddressService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2020-01-09
  */
 @Service
-public class UmsMemberReceiveAddressServiceImpl extends ServiceImpl<UmsMemberReceiveAddressMapper, UmsMemberReceiveAddress> implements UmsMemberReceiveAddressService {
+public class UmsMemberReceiveAddressServiceImpl extends ServiceImpl<UmsMemberReceiveAddressMapper, UmsMemberReceiveAddress> implements IService<UmsMemberReceiveAddress> {
 
 }

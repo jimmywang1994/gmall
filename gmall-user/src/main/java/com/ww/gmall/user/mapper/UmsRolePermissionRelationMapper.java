@@ -1,6 +1,6 @@
 package com.ww.gmall.user.mapper;
 
-import com.ww.gmall.user.bean.UmsRolePermissionRelation;
+import com.ww.gmall.bean.UmsRolePermissionRelation;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

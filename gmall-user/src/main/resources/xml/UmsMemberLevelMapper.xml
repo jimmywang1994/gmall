@@ -3,7 +3,7 @@
 <mapper namespace="com.ww.gmall.user.mapper.UmsMemberLevelMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ww.gmall.user.bean.UmsMemberLevel">
+    <resultMap id="BaseResultMap" type="com.ww.gmall.bean.UmsMemberLevel">
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="growth_point" property="growthPoint" />

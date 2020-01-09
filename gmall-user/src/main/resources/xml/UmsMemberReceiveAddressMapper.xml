@@ -3,7 +3,7 @@
 <mapper namespace="com.ww.gmall.user.mapper.UmsMemberReceiveAddressMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ww.gmall.user.bean.UmsMemberReceiveAddress">
+    <resultMap id="BaseResultMap" type="com.ww.gmall.bean.UmsMemberReceiveAddress">
         <id column="id" property="id" />
         <result column="member_id" property="memberId" />
         <result column="name" property="name" />

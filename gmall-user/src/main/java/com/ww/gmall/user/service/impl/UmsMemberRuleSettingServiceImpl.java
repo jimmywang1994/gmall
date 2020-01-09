@@ -1,8 +1,8 @@
 package com.ww.gmall.user.service.impl;
 
-import com.ww.gmall.user.bean.UmsMemberRuleSetting;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.ww.gmall.bean.UmsMemberRuleSetting;
 import com.ww.gmall.user.mapper.UmsMemberRuleSettingMapper;
-import com.ww.gmall.user.service.UmsMemberRuleSettingService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2020-01-09
  */
 @Service
-public class UmsMemberRuleSettingServiceImpl extends ServiceImpl<UmsMemberRuleSettingMapper, UmsMemberRuleSetting> implements UmsMemberRuleSettingService {
+public class UmsMemberRuleSettingServiceImpl extends ServiceImpl<UmsMemberRuleSettingMapper, UmsMemberRuleSetting> implements IService<UmsMemberRuleSetting> {
 
 }

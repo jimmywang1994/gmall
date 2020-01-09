@@ -3,7 +3,7 @@
 <mapper namespace="com.ww.gmall.user.mapper.UmsRoleMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ww.gmall.user.bean.UmsRole">
+    <resultMap id="BaseResultMap" type="com.ww.gmall.bean.UmsRole">
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="description" property="description" />

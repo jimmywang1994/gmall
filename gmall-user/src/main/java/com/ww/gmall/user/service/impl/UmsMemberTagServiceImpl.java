@@ -1,8 +1,8 @@
 package com.ww.gmall.user.service.impl;
 
-import com.ww.gmall.user.bean.UmsMemberTag;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.ww.gmall.bean.UmsMemberTag;
 import com.ww.gmall.user.mapper.UmsMemberTagMapper;
-import com.ww.gmall.user.service.UmsMemberTagService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2020-01-09
  */
 @Service
-public class UmsMemberTagServiceImpl extends ServiceImpl<UmsMemberTagMapper, UmsMemberTag> implements UmsMemberTagService {
+public class UmsMemberTagServiceImpl extends ServiceImpl<UmsMemberTagMapper, UmsMemberTag> implements IService<UmsMemberTag> {
 
 }

@@ -3,7 +3,7 @@
 <mapper namespace="com.ww.gmall.user.mapper.UmsMemberMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ww.gmall.user.bean.UmsMember">
+    <resultMap id="BaseResultMap" type="com.ww.gmall.bean.UmsMember">
         <id column="id" property="id" />
         <result column="member_level_id" property="memberLevelId" />
         <result column="username" property="username" />

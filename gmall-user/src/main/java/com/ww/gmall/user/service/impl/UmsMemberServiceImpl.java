@@ -1,8 +1,8 @@
 package com.ww.gmall.user.service.impl;
 
-import com.ww.gmall.user.bean.UmsMember;
+import com.ww.gmall.service.UmsMemberService;
+import com.ww.gmall.bean.UmsMember;
 import com.ww.gmall.user.mapper.UmsMemberMapper;
-import com.ww.gmall.user.service.UmsMemberService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

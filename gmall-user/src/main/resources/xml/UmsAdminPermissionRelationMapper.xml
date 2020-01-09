@@ -3,7 +3,7 @@
 <mapper namespace="com.ww.gmall.user.mapper.UmsAdminPermissionRelationMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ww.gmall.user.bean.UmsAdminPermissionRelation">
+    <resultMap id="BaseResultMap" type="com.ww.gmall.bean.UmsAdminPermissionRelation">
         <id column="id" property="id" />
         <result column="admin_id" property="adminId" />
         <result column="permission_id" property="permissionId" />

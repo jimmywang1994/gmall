@@ -22,7 +22,7 @@ public class CodeGenerator {
         // 2、全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir("E:\\mycode\\gitclone\\gmall\\gmall-user" + "/src/main/java");
+        gc.setOutputDir("E:\\mycode\\gitclone\\gmall\\gmall-api" + "/src/main/java");
         gc.setAuthor("wwei");
         gc.setOpen(false); //生成后是否打开资源管理器
         gc.setFileOverride(false); //重新生成时文件是否覆盖
@@ -45,12 +45,12 @@ public class CodeGenerator {
 
         // 4、包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName(packageName); //模块名
+//        pc.setModuleName(packageName); //模块名
         pc.setParent("com.ww.gmall");
-        pc.setController("controller");
+//        pc.setController("controller");
         pc.setEntity("bean");
         pc.setService("service");
-        pc.setMapper("mapper");
+//        pc.setMapper("mapper");
         mpg.setPackageInfo(pc);
 
         // 5、策略配置

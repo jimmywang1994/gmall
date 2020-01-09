@@ -1,8 +1,8 @@
 package com.ww.gmall.user.service.impl;
 
-import com.ww.gmall.user.bean.UmsMemberStatisticsInfo;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.ww.gmall.bean.UmsMemberStatisticsInfo;
 import com.ww.gmall.user.mapper.UmsMemberStatisticsInfoMapper;
-import com.ww.gmall.user.service.UmsMemberStatisticsInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2020-01-09
  */
 @Service
-public class UmsMemberStatisticsInfoServiceImpl extends ServiceImpl<UmsMemberStatisticsInfoMapper, UmsMemberStatisticsInfo> implements UmsMemberStatisticsInfoService {
+public class UmsMemberStatisticsInfoServiceImpl extends ServiceImpl<UmsMemberStatisticsInfoMapper, UmsMemberStatisticsInfo> implements IService<UmsMemberStatisticsInfo> {
 
 }

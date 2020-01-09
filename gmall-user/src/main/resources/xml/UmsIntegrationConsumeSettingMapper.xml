@@ -3,7 +3,7 @@
 <mapper namespace="com.ww.gmall.user.mapper.UmsIntegrationConsumeSettingMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ww.gmall.user.bean.UmsIntegrationConsumeSetting">
+    <resultMap id="BaseResultMap" type="com.ww.gmall.bean.UmsIntegrationConsumeSetting">
         <id column="id" property="id" />
         <result column="deduction_per_amount" property="deductionPerAmount" />
         <result column="max_percent_per_order" property="maxPercentPerOrder" />

@@ -1,8 +1,8 @@
 package com.ww.gmall.user.service.impl;
 
-import com.ww.gmall.user.bean.UmsIntegrationConsumeSetting;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.ww.gmall.bean.UmsIntegrationConsumeSetting;
 import com.ww.gmall.user.mapper.UmsIntegrationConsumeSettingMapper;
-import com.ww.gmall.user.service.UmsIntegrationConsumeSettingService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2020-01-09
  */
 @Service
-public class UmsIntegrationConsumeSettingServiceImpl extends ServiceImpl<UmsIntegrationConsumeSettingMapper, UmsIntegrationConsumeSetting> implements UmsIntegrationConsumeSettingService {
+public class UmsIntegrationConsumeSettingServiceImpl extends ServiceImpl<UmsIntegrationConsumeSettingMapper, UmsIntegrationConsumeSetting> implements IService<UmsIntegrationConsumeSetting> {
 
 }

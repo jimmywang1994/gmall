@@ -1,8 +1,8 @@
 package com.ww.gmall.user.service.impl;
 
-import com.ww.gmall.user.bean.UmsMemberProductCategoryRelation;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.ww.gmall.bean.UmsMemberProductCategoryRelation;
 import com.ww.gmall.user.mapper.UmsMemberProductCategoryRelationMapper;
-import com.ww.gmall.user.service.UmsMemberProductCategoryRelationService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2020-01-09
  */
 @Service
-public class UmsMemberProductCategoryRelationServiceImpl extends ServiceImpl<UmsMemberProductCategoryRelationMapper, UmsMemberProductCategoryRelation> implements UmsMemberProductCategoryRelationService {
+public class UmsMemberProductCategoryRelationServiceImpl extends ServiceImpl<UmsMemberProductCategoryRelationMapper, UmsMemberProductCategoryRelation> implements IService<UmsMemberProductCategoryRelation> {
 
 }

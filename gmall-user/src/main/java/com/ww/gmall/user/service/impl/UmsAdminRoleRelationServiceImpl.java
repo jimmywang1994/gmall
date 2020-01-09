@@ -1,8 +1,8 @@
 package com.ww.gmall.user.service.impl;
 
-import com.ww.gmall.user.bean.UmsAdminRoleRelation;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.ww.gmall.bean.UmsAdminRoleRelation;
 import com.ww.gmall.user.mapper.UmsAdminRoleRelationMapper;
-import com.ww.gmall.user.service.UmsAdminRoleRelationService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2020-01-09
  */
 @Service
-public class UmsAdminRoleRelationServiceImpl extends ServiceImpl<UmsAdminRoleRelationMapper, UmsAdminRoleRelation> implements UmsAdminRoleRelationService {
+public class UmsAdminRoleRelationServiceImpl extends ServiceImpl<UmsAdminRoleRelationMapper, UmsAdminRoleRelation> implements IService<UmsAdminRoleRelation> {
 
 }

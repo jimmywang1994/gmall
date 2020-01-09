@@ -3,7 +3,7 @@
 <mapper namespace="com.ww.gmall.user.mapper.UmsMemberMemberTagRelationMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ww.gmall.user.bean.UmsMemberMemberTagRelation">
+    <resultMap id="BaseResultMap" type="com.ww.gmall.bean.UmsMemberMemberTagRelation">
         <id column="id" property="id" />
         <result column="member_id" property="memberId" />
         <result column="tag_id" property="tagId" />
