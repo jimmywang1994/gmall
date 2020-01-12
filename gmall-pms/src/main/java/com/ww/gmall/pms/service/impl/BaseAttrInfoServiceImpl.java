@@ -9,6 +9,7 @@ import com.ww.gmall.pms.mapper.BaseAttrValueMapper;
 import com.ww.gmall.pms.service.BaseAttrInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -37,11 +38,16 @@ public class BaseAttrInfoServiceImpl extends ServiceImpl<BaseAttrInfoMapper, Bas
 
     @Override
     public String saveAttr(BaseAttrInfo baseAttrInfo) {
-        baseAttrInfoMapper.insert(baseAttrInfo);
-        for(BaseAttrValue attrValue:baseAttrInfo.getAttrValueList()){
-            attrValue.setAttrId(baseAttrInfo.getId());
-            baseAttrValueMapper.insert(attrValue);
+        if(StringUtils.isEmpty(baseAttrInfo.getId())){
+            baseAttrInfoMapper.insert(baseAttrInfo);
+            for(BaseAttrValue attrValue:baseAttrInfo.getAttrValueList()){
+                attrValue.setAttrId(baseAttrInfo.getId());
+                baseAttrValueMapper.insert(attrValue);
+            }
+        }else{
+            baseAttrInfoMapper.updateById(baseAttrInfo);
         }
+
         return "success";
     }
 }
