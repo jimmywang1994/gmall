@@ -2,6 +2,7 @@ package com.ww.gmall.pms.service;
 
 import com.ww.gmall.pms.bean.BaseCatalog1;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ww.gmall.pms.bean.BaseCatalog2;
 
 import java.util.List;
 
