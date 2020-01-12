@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.data.annotation.Transient;
 
 /**
  * <p>
@@ -45,6 +46,7 @@ public class BaseAttrInfo implements Serializable {
     @TableField("is_enabled")
     private String isEnabled;
 
+    @TableField(exist = false)
     private List<BaseAttrValue> attrValueList;
 
 }

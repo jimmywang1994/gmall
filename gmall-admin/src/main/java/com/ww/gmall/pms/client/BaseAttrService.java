@@ -3,6 +3,7 @@ package com.ww.gmall.pms.client;
 import com.ww.gmall.pms.bean.BaseAttrInfo;
 import com.ww.gmall.pms.bean.BaseAttrValue;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -15,4 +16,7 @@ public interface BaseAttrService {
 
     @RequestMapping("/pms/base-attr-value/getAttrValueList")
     public List<BaseAttrValue> getAttrValueList(@RequestParam("attrId")String attrId);
+
+    @RequestMapping("/pms/base-attr-info/saveAttrInfo")
+    public String saveAttrInfo(@RequestBody BaseAttrInfo baseAttrInfo);
 }

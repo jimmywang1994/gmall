@@ -4,10 +4,7 @@ package com.ww.gmall.pms.controller;
 import com.ww.gmall.pms.bean.BaseAttrInfo;
 import com.ww.gmall.pms.client.BaseAttrService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +26,10 @@ public class BaseAttrInfoController {
     @RequestMapping("attrInfoList")
     public List<BaseAttrInfo> attrInfoList(@RequestParam("catalog3Id")String catalog3Id){
         return baseAttrService.attrInfoList(catalog3Id);
+    }
+
+    @RequestMapping("saveAttrInfo")
+    public String saveAttrInfo(@RequestBody BaseAttrInfo baseAttrInfo){
+        return baseAttrService.saveAttrInfo(baseAttrInfo);
     }
 }
