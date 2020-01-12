@@ -3,7 +3,7 @@
 <mapper namespace="com.ww.gmall.user.mapper.UmsGrowthChangeHistoryMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ww.gmall.bean.UmsGrowthChangeHistory">
+    <resultMap id="BaseResultMap" type="com.ww.gmall.ums.bean.UmsGrowthChangeHistory">
         <id column="id" property="id" />
         <result column="member_id" property="memberId" />
         <result column="create_time" property="createTime" />

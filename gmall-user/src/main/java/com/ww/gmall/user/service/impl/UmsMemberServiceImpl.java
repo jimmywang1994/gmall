@@ -1,7 +1,7 @@
 package com.ww.gmall.user.service.impl;
 
-import com.ww.gmall.service.UmsMemberService;
-import com.ww.gmall.bean.UmsMember;
+import com.ww.gmall.ums.service.UmsMemberService;
+import com.ww.gmall.ums.bean.UmsMember;
 import com.ww.gmall.user.mapper.UmsMemberMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.dubbo.config.annotation.Service;

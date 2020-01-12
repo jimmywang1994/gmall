@@ -1,13 +1,11 @@
 package com.ww.gmall.user.controller;
 
 
-import com.ww.gmall.bean.UmsMember;
-import com.ww.gmall.service.UmsMemberService;
-import org.apache.dubbo.config.annotation.Reference;
+import com.ww.gmall.ums.bean.UmsMember;
+import com.ww.gmall.ums.service.UmsMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 

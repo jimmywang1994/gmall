@@ -1,6 +1,6 @@
 package com.ww.gmall.user.mapper;
 
-import com.ww.gmall.bean.UmsGrowthChangeHistory;
+import com.ww.gmall.ums.bean.UmsGrowthChangeHistory;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

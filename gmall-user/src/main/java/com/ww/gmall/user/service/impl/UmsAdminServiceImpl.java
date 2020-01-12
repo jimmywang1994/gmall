@@ -1,7 +1,7 @@
 package com.ww.gmall.user.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ww.gmall.bean.UmsAdmin;
+import com.ww.gmall.ums.bean.UmsAdmin;
 import com.ww.gmall.user.mapper.UmsAdminMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

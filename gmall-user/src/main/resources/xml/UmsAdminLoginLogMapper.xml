@@ -3,7 +3,7 @@
 <mapper namespace="com.ww.gmall.user.mapper.UmsAdminLoginLogMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ww.gmall.bean.UmsAdminLoginLog">
+    <resultMap id="BaseResultMap" type="com.ww.gmall.ums.bean.UmsAdminLoginLog">
         <id column="id" property="id" />
         <result column="admin_id" property="adminId" />
         <result column="create_time" property="createTime" />

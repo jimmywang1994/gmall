@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.gmall.pms.mapper.SkuSaleAttrValueMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.gmall.pms.bean.SkuSaleAttrValue">
+        <id column="id" property="id" />
+        <result column="sku_id" property="skuId" />
+        <result column="sale_attr_id" property="saleAttrId" />
+        <result column="sale_attr_value_id" property="saleAttrValueId" />
+        <result column="sale_attr_name" property="saleAttrName" />
+        <result column="sale_attr_value_name" property="saleAttrValueName" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, sku_id, sale_attr_id, sale_attr_value_id, sale_attr_name, sale_attr_value_name
+    </sql>
+
+</mapper>

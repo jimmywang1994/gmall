@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ww.gmall.pms.mapper.SkuInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ww.gmall.pms.bean.SkuInfo">
+        <id column="id" property="id" />
+        <result column="product_id" property="productId" />
+        <result column="price" property="price" />
+        <result column="sku_name" property="skuName" />
+        <result column="sku_desc" property="skuDesc" />
+        <result column="weight" property="weight" />
+        <result column="tm_id" property="tmId" />
+        <result column="catalog3_id" property="catalog3Id" />
+        <result column="sku_default_img" property="skuDefaultImg" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, product_id, price, sku_name, sku_desc, weight, tm_id, catalog3_id, sku_default_img
+    </sql>
+
+</mapper>

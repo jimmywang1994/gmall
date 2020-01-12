@@ -1,6 +1,6 @@
 package com.ww.gmall.ums.client;
 
-import com.ww.gmall.bean.UmsMember;
+import com.ww.gmall.ums.bean.UmsMember;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 

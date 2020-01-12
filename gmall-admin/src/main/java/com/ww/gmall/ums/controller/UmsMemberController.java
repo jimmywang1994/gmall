@@ -1,7 +1,7 @@
 package com.ww.gmall.ums.controller;
 
 
-import com.ww.gmall.bean.UmsMember;
+import com.ww.gmall.ums.bean.UmsMember;
 import com.ww.gmall.ums.client.UmsMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

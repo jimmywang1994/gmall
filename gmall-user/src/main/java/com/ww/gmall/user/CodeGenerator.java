@@ -14,15 +14,15 @@ import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 public class CodeGenerator {
     public static void main(String[] args) {
 
-        String moduleName = "ums";
-        String packageName="user";
+        String moduleName = "pms";
+        String packageName="pms";
         // 1、创建代码生成器
         AutoGenerator mpg = new AutoGenerator();
 
         // 2、全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir("E:\\mycode\\gitclone\\gmall\\gmall-api" + "/src/main/java");
+        gc.setOutputDir("C:\\mycode\\gitclone\\gmall\\gmall-api" + "/src/main/java");
         gc.setAuthor("wwei");
         gc.setOpen(false); //生成后是否打开资源管理器
         gc.setFileOverride(false); //重新生成时文件是否覆盖
@@ -36,8 +36,8 @@ public class CodeGenerator {
 
         // 3、数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://192.168.130.6/gmall_" + moduleName + "?useUnicode=true&useSSL=false&characterEncoding=utf8");
-        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
+        dsc.setUrl("jdbc:mysql://192.168.163.3/gmall_" + moduleName + "?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("root");
         dsc.setDbType(DbType.MYSQL);
@@ -45,7 +45,7 @@ public class CodeGenerator {
 
         // 4、包配置
         PackageConfig pc = new PackageConfig();
-//        pc.setModuleName(packageName); //模块名
+        pc.setModuleName(packageName); //模块名
         pc.setParent("com.ww.gmall");
 //        pc.setController("controller");
         pc.setEntity("bean");

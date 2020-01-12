@@ -1,6 +1,6 @@
 package com.ww.gmall.user.mapper;
 
-import com.ww.gmall.bean.UmsAdmin;
+import com.ww.gmall.ums.bean.UmsAdmin;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

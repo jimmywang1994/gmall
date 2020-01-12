@@ -1,7 +1,7 @@
 package com.ww.gmall.user.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ww.gmall.bean.UmsIntegrationChangeHistory;
+import com.ww.gmall.ums.bean.UmsIntegrationChangeHistory;
 import com.ww.gmall.user.mapper.UmsIntegrationChangeHistoryMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

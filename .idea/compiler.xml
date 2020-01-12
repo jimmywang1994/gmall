@@ -7,9 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="gmall-plugin" />
-        <module name="gmall-boot-admin" />
         <module name="gmall-eureka-server" />
         <module name="gmall-user" />
+        <module name="gmall-boot-admin" />
+        <module name="gmall-pms" />
         <module name="gmall-api" />
         <module name="gmall-admin" />
       </profile>
@@ -29,6 +30,7 @@
       <module name="gmall-boot-admin" options="-parameters" />
       <module name="gmall-eureka-server" options="-parameters" />
       <module name="gmall-plugin" options="-parameters" />
+      <module name="gmall-pms" options="-parameters" />
       <module name="gmall-user" options="-parameters" />
     </option>
   </component>

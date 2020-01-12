@@ -1,7 +1,7 @@
 package com.ww.gmall.user.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ww.gmall.bean.UmsRolePermissionRelation;
+import com.ww.gmall.ums.bean.UmsRolePermissionRelation;
 import com.ww.gmall.user.mapper.UmsRolePermissionRelationMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
