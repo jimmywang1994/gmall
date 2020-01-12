@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -43,5 +45,6 @@ public class BaseAttrInfo implements Serializable {
     @TableField("is_enabled")
     private String isEnabled;
 
+    private List<BaseAttrValue> attrValueList;
 
 }

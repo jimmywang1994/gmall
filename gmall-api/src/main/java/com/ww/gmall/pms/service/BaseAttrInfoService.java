@@ -16,4 +16,5 @@ import java.util.List;
 public interface BaseAttrInfoService extends IService<BaseAttrInfo> {
     List<BaseAttrInfo> baseAttrInfos(String catalog3Id);
 
+    String saveAttr(BaseAttrInfo baseAttrInfo);
 }
