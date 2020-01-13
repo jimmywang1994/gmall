@@ -29,25 +29,42 @@ public class BaseAttrInfoServiceImpl extends ServiceImpl<BaseAttrInfoMapper, Bas
 
     @Autowired
     BaseAttrValueMapper baseAttrValueMapper;
+
     @Override
     public List<BaseAttrInfo> baseAttrInfos(String catalog3Id) {
-        QueryWrapper<BaseAttrInfo> wrapper=new QueryWrapper<>();
-        wrapper.eq("catalog3_id",catalog3Id);
+        QueryWrapper<BaseAttrInfo> wrapper = new QueryWrapper<>();
+        wrapper.eq("catalog3_id", catalog3Id);
         return baseAttrInfoMapper.selectList(wrapper);
     }
 
     @Override
     public String saveAttr(BaseAttrInfo baseAttrInfo) {
-        if(StringUtils.isEmpty(baseAttrInfo.getId())){
+        if (StringUtils.isEmpty(baseAttrInfo.getId())) {
             baseAttrInfoMapper.insert(baseAttrInfo);
-            for(BaseAttrValue attrValue:baseAttrInfo.getAttrValueList()){
+            for (BaseAttrValue attrValue : baseAttrInfo.getAttrValueList()) {
                 attrValue.setAttrId(baseAttrInfo.getId());
                 baseAttrValueMapper.insert(attrValue);
             }
-        }else{
+        } else {
             baseAttrInfoMapper.updateById(baseAttrInfo);
+            QueryWrapper<BaseAttrValue> wrapper = new QueryWrapper<>();
+            wrapper.eq("attr_id", baseAttrInfo.getId());
+            baseAttrValueMapper.delete(wrapper);
+            for (BaseAttrValue attrValue : baseAttrInfo.getAttrValueList()) {
+                attrValue.setAttrId(baseAttrInfo.getId());
+                baseAttrValueMapper.insert(attrValue);
+            }
         }
 
+        return "success";
+    }
+
+    @Override
+    public String deleAttr(String attrId) {
+        baseAttrInfoMapper.deleteById(attrId);
+        QueryWrapper<BaseAttrValue> wrapper = new QueryWrapper<>();
+        wrapper.eq("attr_id", attrId);
+        baseAttrValueMapper.delete(wrapper);
         return "success";
     }
 }

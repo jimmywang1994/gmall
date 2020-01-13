@@ -32,4 +32,9 @@ public class BaseAttrInfoController {
     public String saveAttrInfo(@RequestBody BaseAttrInfo baseAttrInfo){
         return baseAttrService.saveAttrInfo(baseAttrInfo);
     }
+
+    @RequestMapping("deleteAttrInfoById/{attrId}")
+    public String deleteAttrInfoById(@PathVariable("attrId")String attrId){
+        return baseAttrService.deleteAttrInfoById(attrId);
+    }
 }

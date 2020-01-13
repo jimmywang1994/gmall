@@ -4,11 +4,7 @@ package com.ww.gmall.pms.controller;
 import com.ww.gmall.pms.bean.BaseAttrInfo;
 import com.ww.gmall.pms.service.BaseAttrInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,8 +30,14 @@ public class BaseAttrInfoController {
     }
 
     @RequestMapping("saveAttrInfo")
-    public String saveAttrInfo(@RequestBody BaseAttrInfo baseAttrInfo){
-        String result=baseAttrInfoService.saveAttr(baseAttrInfo);
+    public String saveAttrInfo(@RequestBody BaseAttrInfo baseAttrInfo) {
+        String result = baseAttrInfoService.saveAttr(baseAttrInfo);
+        return result;
+    }
+
+    @RequestMapping("deleteAttrInfoById/{attrId}")
+    public String deleteAttrInfoById(@PathVariable("attrId") String attrId) {
+        String result = baseAttrInfoService.deleAttr(attrId);
         return result;
     }
 }
