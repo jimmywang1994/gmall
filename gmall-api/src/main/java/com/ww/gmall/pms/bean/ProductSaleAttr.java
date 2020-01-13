@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -13,7 +16,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author wwei
@@ -23,7 +26,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("pms_product_sale_attr")
-@ApiModel(value="ProductSaleAttr对象", description="")
+@ApiModel(value = "ProductSaleAttr对象", description = "")
 public class ProductSaleAttr implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,5 +47,6 @@ public class ProductSaleAttr implements Serializable {
     @TableField("sale_attr_name")
     private String saleAttrName;
 
-
+    @TableField(exist = false)
+    private List<ProductSaleAttrValue> productSaleAttrValueList;
 }
