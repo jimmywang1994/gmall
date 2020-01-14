@@ -5,6 +5,7 @@ import com.netflix.discovery.converters.Auto;
 import com.ww.gmall.pms.bean.ProductInfo;
 import com.ww.gmall.pms.client.ProductInfoService;
 import com.ww.gmall.pms.client.UploadFileService;
+import com.ww.gmall.util.UploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,6 +42,7 @@ public class ProductInfoController {
 
     @RequestMapping("fileUpload")
     public String fileUpload(@RequestParam("file")MultipartFile multipartFile){
-        return uploadFileService.fileUpload(multipartFile);
+        UploadUtil.uploadUtil(multipartFile);
+        return "success";
     }
 }
