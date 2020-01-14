@@ -34,6 +34,7 @@ public class UploadUtil {
             for (String uploadInfo : uploadInfos) {
                 imgUrl += "/" + uploadInfo;
             }
+            System.out.println(imgUrl);
         } catch (Exception e) {
             e.printStackTrace();
         }

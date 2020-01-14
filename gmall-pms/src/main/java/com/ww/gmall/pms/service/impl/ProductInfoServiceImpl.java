@@ -9,6 +9,7 @@ import com.ww.gmall.pms.mapper.ProductInfoMapper;
 import com.ww.gmall.pms.mapper.ProductSaleAttrMapper;
 import com.ww.gmall.pms.mapper.ProductSaleAttrValueMapper;
 import com.ww.gmall.pms.service.ProductInfoService;
+import com.ww.gmall.pms.util.UploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -58,7 +59,7 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoMapper, Produ
 
     @Override
     public String uploadFile(MultipartFile multipartFile) {
-
-        return null;
+        UploadUtil.uploadUtil(multipartFile);
+        return "success";
     }
 }

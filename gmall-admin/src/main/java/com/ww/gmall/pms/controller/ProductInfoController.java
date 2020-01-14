@@ -1,8 +1,10 @@
 package com.ww.gmall.pms.controller;
 
 
+import com.netflix.discovery.converters.Auto;
 import com.ww.gmall.pms.bean.ProductInfo;
 import com.ww.gmall.pms.client.ProductInfoService;
+import com.ww.gmall.pms.client.UploadFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +25,8 @@ import java.util.List;
 public class ProductInfoController {
     @Autowired
     ProductInfoService productInfoService;
+    @Autowired
+    UploadFileService uploadFileService;
 
     @RequestMapping("spuList")
     public List<ProductInfo> productInfos(@RequestParam("catalog3Id") String catalog3Id) {
@@ -37,6 +41,6 @@ public class ProductInfoController {
 
     @RequestMapping("fileUpload")
     public String fileUpload(@RequestParam("file")MultipartFile multipartFile){
-        return "";
+        return uploadFileService.fileUpload(multipartFile);
     }
 }
