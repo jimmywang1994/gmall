@@ -5,6 +5,7 @@ import com.ww.gmall.pms.bean.ProductInfo;
 import com.ww.gmall.pms.client.ProductInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -31,6 +32,11 @@ public class ProductInfoController {
     @RequestMapping("saveSpuInfo")
     public String saveSpuInfo(@RequestBody ProductInfo productInfo) {
         productInfoService.saveSpuInfo(productInfo);
+        return "";
+    }
+
+    @RequestMapping("fileUpload")
+    public String fileUpload(@RequestParam("file")MultipartFile multipartFile){
         return "";
     }
 }

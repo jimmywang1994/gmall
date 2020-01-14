@@ -56,7 +56,11 @@
             <artifactId>dubbo-spring-boot-starter</artifactId>
             <version>${dubbo.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.csource</groupId>
+            <artifactId>fastdfs-client-java</artifactId>
+            <version>1.29-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo</artifactId>

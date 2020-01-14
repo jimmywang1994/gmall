@@ -11,6 +11,7 @@ import com.ww.gmall.pms.mapper.ProductSaleAttrValueMapper;
 import com.ww.gmall.pms.service.ProductInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -53,5 +54,11 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoMapper, Produ
             }
         }
         return "success";
+    }
+
+    @Override
+    public String uploadFile(MultipartFile multipartFile) {
+
+        return null;
     }
 }

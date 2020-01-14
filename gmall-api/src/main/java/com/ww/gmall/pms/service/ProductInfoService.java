@@ -2,6 +2,7 @@ package com.ww.gmall.pms.service;
 
 import com.ww.gmall.pms.bean.ProductInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface ProductInfoService extends IService<ProductInfo> {
     List<ProductInfo> produceInfos(String catalog3Id);
 
     String saveSpuInfo(ProductInfo productInfo);
+
+    String uploadFile(MultipartFile multipartFile);
 }
