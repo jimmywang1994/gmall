@@ -52,8 +52,8 @@ public class ProductInfo implements Serializable {
     private Long tmId;
 
     @TableField(exist = false)
-    private List<ProductSaleAttr> saleAttrList;
+    private List<ProductSaleAttr> spuSaleAttrList;
 
     @TableField(exist = false)
-    private List<ProductImage> productImageList;
+    private List<ProductImage> spuImageList;
 }

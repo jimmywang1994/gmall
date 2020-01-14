@@ -48,5 +48,5 @@ public class ProductSaleAttr implements Serializable {
     private String saleAttrName;
 
     @TableField(exist = false)
-    private List<ProductSaleAttrValue> productSaleAttrValueList;
+    private List<ProductSaleAttrValue> spuSaleAttrValueList;
 }

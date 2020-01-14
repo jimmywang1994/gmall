@@ -3,7 +3,11 @@ package com.ww.gmall.pms.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ww.gmall.pms.bean.ProductInfo;
+import com.ww.gmall.pms.bean.ProductSaleAttr;
+import com.ww.gmall.pms.bean.ProductSaleAttrValue;
 import com.ww.gmall.pms.mapper.ProductInfoMapper;
+import com.ww.gmall.pms.mapper.ProductSaleAttrMapper;
+import com.ww.gmall.pms.mapper.ProductSaleAttrValueMapper;
 import com.ww.gmall.pms.service.ProductInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,11 +27,31 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoMapper, Produ
 
     @Autowired
     ProductInfoMapper productInfoMapper;
+    @Autowired
+    ProductSaleAttrMapper productSaleAttrMapper;
+    @Autowired
+    ProductSaleAttrValueMapper productSaleAttrValueMapper;
 
     @Override
     public List<ProductInfo> produceInfos(String catalog3Id) {
         QueryWrapper<ProductInfo> wrapper = new QueryWrapper<>();
         wrapper.eq("catalog3_id", catalog3Id);
         return productInfoMapper.selectList(wrapper);
+    }
+
+    @Override
+    public String saveSpuInfo(ProductInfo productInfo) {
+        productInfoMapper.insert(productInfo);
+        long product_id = productInfo.getId();
+        for (ProductSaleAttr saleAttr : productInfo.getSpuSaleAttrList()) {
+            saleAttr.setProductId(product_id);
+            productSaleAttrMapper.insert(saleAttr);
+            for (ProductSaleAttrValue saleAttrValue : saleAttr.getSpuSaleAttrValueList()) {
+                saleAttrValue.setProductId(product_id);
+                saleAttrValue.setSaleAttrId(saleAttr.getSaleAttrId());
+                productSaleAttrValueMapper.insert(saleAttrValue);
+            }
+        }
+        return "success";
     }
 }

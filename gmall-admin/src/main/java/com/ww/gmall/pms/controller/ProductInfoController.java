@@ -4,10 +4,7 @@ package com.ww.gmall.pms.controller;
 import com.ww.gmall.pms.bean.ProductInfo;
 import com.ww.gmall.pms.client.ProductInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +26,11 @@ public class ProductInfoController {
     @RequestMapping("spuList")
     public List<ProductInfo> productInfos(@RequestParam("catalog3Id") String catalog3Id) {
         return productInfoService.productInfos(catalog3Id);
+    }
+
+    @RequestMapping("saveSpuInfo")
+    public String saveSpuInfo(@RequestBody ProductInfo productInfo) {
+        productInfoService.saveSpuInfo(productInfo);
+        return "";
     }
 }
