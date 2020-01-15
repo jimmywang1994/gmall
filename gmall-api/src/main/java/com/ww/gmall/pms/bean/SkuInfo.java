@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -63,5 +65,12 @@ public class SkuInfo implements Serializable {
     @TableField("sku_default_img")
     private String skuDefaultImg;
 
+    //sku基本属性值
+    @TableField(exist = false)
+    private List<SkuAttrValue> skuAttrValueList;
+
+    //sku销售属性值
+    @TableField(exist = false)
+    private List<SkuSaleAttrValue> skuSaleAttrValueList;
 
 }

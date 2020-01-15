@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,7 +35,14 @@ public class BaseAttrInfoServiceImpl extends ServiceImpl<BaseAttrInfoMapper, Bas
     public List<BaseAttrInfo> baseAttrInfos(String catalog3Id) {
         QueryWrapper<BaseAttrInfo> wrapper = new QueryWrapper<>();
         wrapper.eq("catalog3_id", catalog3Id);
-        return baseAttrInfoMapper.selectList(wrapper);
+        List<BaseAttrInfo> baseAttrInfoList = baseAttrInfoMapper.selectList(wrapper);
+        for (BaseAttrInfo baseAttrInfo : baseAttrInfoList) {
+            QueryWrapper<BaseAttrValue> wrapper1 = new QueryWrapper<>();
+            wrapper1.eq("attr_id", baseAttrInfo.getId());
+            List<BaseAttrValue> attrValueList = baseAttrValueMapper.selectList(wrapper1);
+            baseAttrInfo.setAttrValueList(attrValueList);
+        }
+        return baseAttrInfoList;
     }
 
     @Override
