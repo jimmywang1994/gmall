@@ -19,7 +19,7 @@ public class UploadUtil {
         TrackerClient trackerClient = new TrackerClient();
         TrackerServer trackerServer = null;
         try {
-            trackerClient.getTrackerServer();
+            trackerServer = trackerClient.getTrackerServer();
         } catch (Exception e) {
             e.printStackTrace();
         }
