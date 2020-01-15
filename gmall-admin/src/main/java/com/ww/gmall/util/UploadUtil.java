@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class UploadUtil {
     public static String uploadUtil(MultipartFile multipartFile) {
-        String imgUrl = "192.168.163.3";
+        String imgUrl = "192.168.130.6";
         String tracker = UploadUtil.class.getResource("/tracker.conf").getPath();
         try {
             ClientGlobal.init(tracker);
@@ -26,7 +26,7 @@ public class UploadUtil {
         try {
             byte[] bytes = multipartFile.getBytes();
             String originalFilename = multipartFile.getOriginalFilename();
-            String extName = originalFilename.substring(0, originalFilename.lastIndexOf(".") + 1);
+            String extName = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
             String[] uploadInfos = storageClient.upload_file(bytes, extName, null);
             for (String uploadInfo : uploadInfos) {
                 imgUrl += "/" + uploadInfo;

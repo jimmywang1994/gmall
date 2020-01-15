@@ -2,9 +2,11 @@ package com.ww.gmall.pms.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ww.gmall.pms.bean.ProductImage;
 import com.ww.gmall.pms.bean.ProductInfo;
 import com.ww.gmall.pms.bean.ProductSaleAttr;
 import com.ww.gmall.pms.bean.ProductSaleAttrValue;
+import com.ww.gmall.pms.mapper.ProductImageMapper;
 import com.ww.gmall.pms.mapper.ProductInfoMapper;
 import com.ww.gmall.pms.mapper.ProductSaleAttrMapper;
 import com.ww.gmall.pms.mapper.ProductSaleAttrValueMapper;
@@ -33,6 +35,8 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoMapper, Produ
     ProductSaleAttrMapper productSaleAttrMapper;
     @Autowired
     ProductSaleAttrValueMapper productSaleAttrValueMapper;
+    @Autowired
+    ProductImageMapper productImageMapper;
 
     @Override
     public List<ProductInfo> produceInfos(String catalog3Id) {
@@ -53,6 +57,10 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoMapper, Produ
                 saleAttrValue.setSaleAttrId(saleAttr.getSaleAttrId());
                 productSaleAttrValueMapper.insert(saleAttrValue);
             }
+        }
+        for (ProductImage image : productInfo.getSpuImageList()) {
+            image.setProductId(product_id);
+            productImageMapper.insert(image);
         }
         return "success";
     }
