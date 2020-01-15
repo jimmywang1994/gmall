@@ -65,12 +65,22 @@ public class SkuInfo implements Serializable {
     @TableField("sku_default_img")
     private String skuDefaultImg;
 
-    //sku基本属性值
+    /**
+     * sku基本属性值
+     */
     @TableField(exist = false)
     private List<SkuAttrValue> skuAttrValueList;
 
-    //sku销售属性值
+    /**
+     * sku销售属性值
+     */
     @TableField(exist = false)
     private List<SkuSaleAttrValue> skuSaleAttrValueList;
+
+    /**
+     * sku图片属性
+     */
+    @TableField(exist = false)
+    private List<SkuImage> skuImageList;
 
 }

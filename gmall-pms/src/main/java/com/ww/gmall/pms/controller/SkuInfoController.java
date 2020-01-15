@@ -1,6 +1,10 @@
 package com.ww.gmall.pms.controller;
 
 
+import com.ww.gmall.pms.bean.SkuInfo;
+import com.ww.gmall.pms.service.SkuInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -16,5 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/pms/sku-info")
 public class SkuInfoController {
+    @Autowired
+    SkuInfoService skuInfoService;
 
+    @RequestMapping("saveSkuInfo")
+    public String saveSkuInfo(@RequestBody SkuInfo skuInfo) {
+        String result = skuInfoService.saveSkuInfo(skuInfo);
+        return result;
+    }
 }
