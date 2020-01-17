@@ -13,4 +13,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SkuInfoService extends IService<SkuInfo> {
     public String saveSkuInfo(SkuInfo skuInfo);
+
+    public SkuInfo skuById(String id);
 }

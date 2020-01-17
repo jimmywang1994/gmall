@@ -10,9 +10,10 @@
         <module name="gmall-plugin" />
         <module name="gmall-eureka-server" />
         <module name="gmall-user" />
-        <module name="gmall-boot-admin" />
-        <module name="gmall-pms" />
+        <module name="gmall-item-web" />
         <module name="gmall-api" />
+        <module name="gmall-pms" />
+        <module name="gmall-boot-admin" />
         <module name="gmall-admin" />
       </profile>
     </annotationProcessing>
@@ -30,6 +31,7 @@
       <module name="gmall-api" options="-parameters" />
       <module name="gmall-boot-admin" options="-parameters" />
       <module name="gmall-eureka-server" options="-parameters" />
+      <module name="gmall-item-web" options="-parameters" />
       <module name="gmall-plugin" options="-parameters" />
       <module name="gmall-pms" options="-parameters" />
       <module name="gmall-user" options="-parameters" />
