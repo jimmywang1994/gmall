@@ -18,4 +18,6 @@ public interface ProductSaleAttrService extends IService<ProductSaleAttr> {
     List<ProductSaleAttr> productSaleAttrList(String productId);
 
     List<ProductImage> productImageList(String productId);
+
+    List<ProductSaleAttr> productSaleAttrListCheckBySku(String productId,String skuId);
 }

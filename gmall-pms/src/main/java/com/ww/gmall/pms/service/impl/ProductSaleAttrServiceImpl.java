@@ -54,4 +54,10 @@ public class ProductSaleAttrServiceImpl extends ServiceImpl<ProductSaleAttrMappe
         List<ProductImage> productImageList = productImageMapper.selectList(wrapper);
         return productImageList;
     }
+
+    @Override
+    public List<ProductSaleAttr> productSaleAttrListCheckBySku(String productId, String skuId) {
+        List<ProductSaleAttr> saleAttrList = productSaleAttrMapper.productSaleAttrListCheckBySku(productId, skuId);
+        return saleAttrList;
+    }
 }

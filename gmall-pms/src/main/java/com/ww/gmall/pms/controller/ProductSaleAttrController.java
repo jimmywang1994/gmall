@@ -37,4 +37,10 @@ public class ProductSaleAttrController {
         List<ProductImage> productImageList=productSaleAttrService.productImageList(spuId);
         return productImageList;
     }
+
+    @RequestMapping("productSaleAttrListCheckBySku")
+    public List<ProductSaleAttr> productSaleAttrListCheckBySku(String productId,String skuId){
+        List<ProductSaleAttr> productSaleAttrList=productSaleAttrService.productSaleAttrListCheckBySku(productId,skuId);
+        return productSaleAttrList;
+    }
 }

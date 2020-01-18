@@ -44,5 +44,7 @@ public class ProductSaleAttrValue implements Serializable {
     @TableField("sale_attr_value_name")
     private String saleAttrValueName;
 
+    @TableField(exist = false)
+    private String isChecked;
 
 }
