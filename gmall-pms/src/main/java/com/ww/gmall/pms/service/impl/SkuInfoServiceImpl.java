@@ -1,6 +1,8 @@
 package com.ww.gmall.pms.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ww.gmall.config.RedisUtil;
 import com.ww.gmall.pms.bean.SkuAttrValue;
 import com.ww.gmall.pms.bean.SkuImage;
 import com.ww.gmall.pms.bean.SkuInfo;
@@ -10,8 +12,10 @@ import com.ww.gmall.pms.mapper.SkuImageMapper;
 import com.ww.gmall.pms.mapper.SkuInfoMapper;
 import com.ww.gmall.pms.mapper.SkuSaleAttrValueMapper;
 import com.ww.gmall.pms.service.SkuInfoService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
 
 import java.util.List;
 
@@ -34,6 +38,8 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
     SkuAttrValueMapper skuAttrValueMapper;
     @Autowired
     SkuSaleAttrValueMapper skuSaleAttrValueMapper;
+    @Autowired
+    RedisUtil redisUtil;
 
     @Override
     public String saveSkuInfo(SkuInfo skuInfo) {
@@ -62,15 +68,36 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
         return "success";
     }
 
-    @Override
-    public SkuInfo skuById(String id) {
+    public SkuInfo skuByIdFromDb(String id) {
         SkuInfo skuInfo = skuInfoMapper.selectById(id);
         return skuInfo;
     }
 
     @Override
+    public SkuInfo skuById(String id) {
+        SkuInfo skuInfo1 = new SkuInfo();
+        //链接缓存
+        Jedis jedis = redisUtil.getJedis();
+        //查询缓存
+        String skuKey = "sku" + id + "info";
+        String skuJson = jedis.get(skuKey);
+        if (StringUtils.isNotBlank(skuJson)) {
+            skuInfo1 = JSON.parseObject(skuJson, SkuInfo.class);
+        } else {
+            //如果缓存中没有，再查库
+            skuInfo1 = skuByIdFromDb(id);
+            if (skuInfo1 != null) {
+                //查完库中的结果放入缓存
+                jedis.set("sku:" + id + "info", JSON.toJSONString(skuInfo1));
+            }
+        }
+        jedis.close();
+        return skuInfo1;
+    }
+
+    @Override
     public List<SkuInfo> getSkuSaleAttrValueListBySku(String productId) {
-        List<SkuInfo> skuInfoList=skuInfoMapper.getSkuSaleAttrValueListBySku(productId);
+        List<SkuInfo> skuInfoList = skuInfoMapper.getSkuSaleAttrValueListBySku(productId);
         return skuInfoList;
     }
 }

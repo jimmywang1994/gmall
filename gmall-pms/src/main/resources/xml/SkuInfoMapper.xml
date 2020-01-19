@@ -23,7 +23,6 @@
     <select id="getSkuSaleAttrValueListBySku" resultMap="skuSaleAttrValueMap">
         select sk.*,ps.*,sk.id as sk_id,ps.id as ps_id from pms_sku_sale_attr_value sk inner join pms_sku_info ps on sk.sku_id=ps.id
         where ps.product_id=#{productId}
-        order by sk.sku_id,sk.sale_attr_id
     </select>
     <resultMap id="skuSaleAttrValueMap" type="com.ww.gmall.pms.bean.SkuInfo" autoMapping="true">
         <result property="id" column="ps_id"></result>
