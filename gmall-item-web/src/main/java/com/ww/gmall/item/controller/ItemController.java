@@ -26,9 +26,14 @@ public class ItemController {
 
     @RequestMapping("{skuId}.html")
     public String items(@PathVariable("skuId") String skuId, ModelMap modelMap) {
+        //sku对象
         SkuInfo skuInfo = skuClient.skuById(skuId);
-        List<ProductSaleAttr> spuSaleAttrListCheckBySku = skuClient.productSaleAttr(skuInfo.getProductId().toString(),skuInfo.getId().toString());
-        modelMap.put("spuSaleAttrListCheckBySku",spuSaleAttrListCheckBySku);
+        //销售属性列表
+        List<ProductSaleAttr> spuSaleAttrListCheckBySku = skuClient.productSaleAttr(skuInfo.getProductId().toString(), skuInfo.getId().toString());
+        //查询当前sku的spu的其他sku的hash表
+        String skuSaleAttrListJson = skuClient.getSkuSaleAttrValueListBySku(skuInfo.getProductId().toString());
+        modelMap.put("spuSaleAttrListCheckBySku", spuSaleAttrListCheckBySku);
+        modelMap.put("skuSaleAttrListJson",skuSaleAttrListJson);
         modelMap.put("skuInfo", skuInfo);
         return "item";
     }

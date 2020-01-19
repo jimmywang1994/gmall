@@ -1,14 +1,16 @@
 package com.ww.gmall.pms.controller;
 
 
+import com.alibaba.fastjson.JSON;
 import com.ww.gmall.pms.bean.SkuInfo;
+import com.ww.gmall.pms.bean.SkuSaleAttrValue;
 import com.ww.gmall.pms.service.SkuInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -34,5 +36,22 @@ public class SkuInfoController {
     public SkuInfo skuById(@PathVariable("skuId") String skuId) {
         SkuInfo skuInfo = skuInfoService.skuById(skuId);
         return skuInfo;
+    }
+
+    @RequestMapping("getSkuSaleAttrValueListBySku")
+    public String getSkuSaleAttrValueListBySku(@RequestParam("productId") String productId) {
+        List<SkuInfo> skuInfoList = skuInfoService.getSkuSaleAttrValueListBySku(productId);
+        Map<String, Object> skuInfoHashMap = new HashMap<>();
+        for (SkuInfo skuInfo : skuInfoList) {
+            String k = "";
+            String v = skuInfo.getId().toString();
+            List<SkuSaleAttrValue> skuSaleAttrValueList = skuInfo.getSkuSaleAttrValueList();
+            for (SkuSaleAttrValue saleAttrValue : skuSaleAttrValueList) {
+                k += saleAttrValue.getSaleAttrValueId() + "|";
+            }
+            skuInfoHashMap.put(k, v);
+        }
+        String skuSaleAttrListJson = JSON.toJSONString(skuInfoHashMap);
+        return skuSaleAttrListJson;
     }
 }

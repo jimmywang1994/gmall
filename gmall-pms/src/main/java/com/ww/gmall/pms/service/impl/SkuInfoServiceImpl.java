@@ -67,4 +67,10 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
         SkuInfo skuInfo = skuInfoMapper.selectById(id);
         return skuInfo;
     }
+
+    @Override
+    public List<SkuInfo> getSkuSaleAttrValueListBySku(String productId) {
+        List<SkuInfo> skuInfoList=skuInfoMapper.getSkuSaleAttrValueListBySku(productId);
+        return skuInfoList;
+    }
 }
