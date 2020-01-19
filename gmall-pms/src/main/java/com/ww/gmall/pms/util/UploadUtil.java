@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class UploadUtil {
     public static String uploadUtil(MultipartFile multipartFile) {
-        String imgUrl = "192.168.163.3";
+        String imgUrl = "192.168.130.6";
         String tracker = UploadUtil.class.getResource("/tracker.conf").getPath();
         try {
             ClientGlobal.init(tracker);

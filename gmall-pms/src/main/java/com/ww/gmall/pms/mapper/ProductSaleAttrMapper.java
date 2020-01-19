@@ -2,6 +2,7 @@ package com.ww.gmall.pms.mapper;
 
 import com.ww.gmall.pms.bean.ProductSaleAttr;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,5 +15,5 @@ import java.util.List;
  * @since 2020-01-12
  */
 public interface ProductSaleAttrMapper extends BaseMapper<ProductSaleAttr> {
-    List<ProductSaleAttr> productSaleAttrListCheckBySku(String productId,String skuId);
+    List<ProductSaleAttr> productSaleAttrListCheckBySku(@Param("productId") String productId, @Param("skuId") String skuId);
 }

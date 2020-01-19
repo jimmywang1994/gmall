@@ -15,5 +15,5 @@ public interface SkuClient {
     public SkuInfo skuById(@PathVariable("skuId") String skuId);
 
     @RequestMapping("/pms/product-sale-attr/productSaleAttrListCheckBySku")
-    public List<ProductSaleAttr> productSaleAttr(String productId,String skuId);
+    public List<ProductSaleAttr> productSaleAttr(@RequestParam("productId") String productId,@RequestParam("skuId") String skuId);
 }
