@@ -86,16 +86,27 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
         } else {
             //如果缓存中没有，再查库
             //加分布式锁
-            String ok = jedis.set("sku:" + id + ":lock", "1", "nx", "px", 10);
+            String ok = jedis.set("sku:" + id + ":lock", "1", "nx", "px", 10000);
             if (StringUtils.isNotBlank(ok) && ok.equals("OK")) {
+                //设置成功，有权在10秒内访问数据库
                 skuInfo1 = skuByIdFromDb(id);
+                if (skuInfo1 != null) {
+                    //查完库中的结果放入缓存
+                    jedis.set("sku:" + id + ":info", JSON.toJSONString(skuInfo1));
+                } else {
+                    //数据库不存在sku，为了防止缓存穿透，将null或空字符串值设置给redis
+                    jedis.setex("sku:" + id + ":info", 60, "");
+                }
+                //将锁释放
+                jedis.del("sku:" + id + ":lock");
             } else {
                 //设置失败,自旋（该线程在睡眠几秒后，重新尝试访问）
-                skuById(id);
-            }
-            if (skuInfo1 != null) {
-                //查完库中的结果放入缓存
-                jedis.set("sku:" + id + ":info", JSON.toJSONString(skuInfo1));
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return skuById(id);
             }
         }
         jedis.close();
