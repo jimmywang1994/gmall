@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="fastdfs-client-java" />
         <module name="gmall-plugin" />
+        <module name="gmall-redisson-test" />
         <module name="gmall-boot-admin" />
         <module name="gmall-eureka-server" />
         <module name="gmall-user" />
@@ -34,6 +35,7 @@
       <module name="gmall-item-web" options="-parameters" />
       <module name="gmall-plugin" options="-parameters" />
       <module name="gmall-pms" options="-parameters" />
+      <module name="gmall-redisson-test" options="-parameters" />
       <module name="gmall-user" options="-parameters" />
     </option>
   </component>
