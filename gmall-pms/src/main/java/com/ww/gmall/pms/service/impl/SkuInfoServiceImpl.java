@@ -17,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * <p>
@@ -70,11 +72,13 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
 
     public SkuInfo skuByIdFromDb(String id) {
         SkuInfo skuInfo = skuInfoMapper.selectById(id);
+        System.out.println(Thread.currentThread().getName() + "进入数据库查询");
         return skuInfo;
     }
 
     @Override
-    public SkuInfo skuById(String id) {
+    public SkuInfo skuById(String id, String ip) {
+        System.out.println("ip为" + ip + "的用户:" + Thread.currentThread().getName() + "进入了商品详情");
         SkuInfo skuInfo1 = new SkuInfo();
         //链接缓存
         Jedis jedis = redisUtil.getJedis();
@@ -82,31 +86,49 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
         String skuKey = "sku:" + id + ":info";
         String skuJson = jedis.get(skuKey);
         if (StringUtils.isNotBlank(skuJson)) {
+            System.out.println("ip为" + ip + "的用户:" + Thread.currentThread().getName() + "从缓存中获取了商品详情");
             skuInfo1 = JSON.parseObject(skuJson, SkuInfo.class);
         } else {
             //如果缓存中没有，再查库
+            System.out.println("ip为" + ip + "的用户:" + Thread.currentThread().getName() + "发现缓存中没有，申请缓存分布式锁" + "sku:" + id + ":lock");
             //加分布式锁
-            String ok = jedis.set("sku:" + id + ":lock", "1", "nx", "px", 10000);
+            String token = UUID.randomUUID().toString();
+
+            String ok = jedis.set("sku:" + id + ":lock", token, "nx", "px", 10000);
             if (StringUtils.isNotBlank(ok) && ok.equals("OK")) {
+                System.out.println("ip为" + ip + "的用户:" + Thread.currentThread().getName() + "有权在10秒之内访问数据库");
                 //设置成功，有权在10秒内访问数据库
                 skuInfo1 = skuByIdFromDb(id);
+//                try {
+//                    Thread.sleep(5000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
                 if (skuInfo1 != null) {
                     //查完库中的结果放入缓存
                     jedis.set("sku:" + id + ":info", JSON.toJSONString(skuInfo1));
                 } else {
                     //数据库不存在sku，为了防止缓存穿透，将null或空字符串值设置给redis
-                    jedis.setex("sku:" + id + ":info", 60, "");
+                    jedis.setex("sku:" + id + ":info", 10, "");
                 }
-                //将锁释放
-                jedis.del("sku:" + id + ":lock");
+                System.out.println("ip为" + ip + "的用户:" + Thread.currentThread().getName() + "用完锁，将锁归还" + "sku:" + id + ":lock");
+                String lockToken = jedis.get("sku:" + id + ":lock");
+                if (StringUtils.isNotBlank(lockToken) && lockToken.equals(token)) {
+                    //将锁释放,通过token确认删除的是自己线程的锁
+                    String script = "if redis.call('get',KEYS[1])==ARGV[1] then return redis.call('del',KEYS[1]) else return 0 end";
+                    //根据token拿到锁的同时删除锁
+                    jedis.eval(script, Collections.singletonList("sku:" + id + ":lock"), Collections.singletonList(lockToken));
+                    //jedis.del("sku:" + id + ":lock");
+                }
             } else {
                 //设置失败,自旋（该线程在睡眠几秒后，重新尝试访问）
+                System.out.println("ip为" + ip + "的用户:" + Thread.currentThread().getName() + "没有拿到锁，开始自旋");
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                return skuById(id);
+                return skuById(id, ip);
             }
         }
         jedis.close();

@@ -33,8 +33,8 @@ public class SkuInfoController {
     }
 
     @RequestMapping("skuById/{skuId}")
-    public SkuInfo skuById(@PathVariable("skuId") String skuId) {
-        SkuInfo skuInfo = skuInfoService.skuById(skuId);
+    public SkuInfo skuById(@PathVariable("skuId") String skuId,String ip) {
+        SkuInfo skuInfo = skuInfoService.skuById(skuId,ip);
         return skuInfo;
     }
 

@@ -12,7 +12,7 @@ import java.util.List;
 @FeignClient("gmall-pms")
 public interface SkuClient {
     @RequestMapping("/pms/sku-info/skuById/{skuId}")
-    public SkuInfo skuById(@PathVariable("skuId") String skuId);
+    public SkuInfo skuById(@PathVariable("skuId") String skuId,String ip);
 
     @RequestMapping("/pms/product-sale-attr/productSaleAttrListCheckBySku")
     public List<ProductSaleAttr> productSaleAttr(@RequestParam("productId") String productId, @RequestParam("skuId") String skuId);

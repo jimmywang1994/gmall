@@ -16,7 +16,7 @@ import java.util.List;
 public interface SkuInfoService extends IService<SkuInfo> {
     public String saveSkuInfo(SkuInfo skuInfo);
 
-    public SkuInfo skuById(String id);
+    public SkuInfo skuById(String id,String ip);
 
     List<SkuInfo> getSkuSaleAttrValueListBySku(String productId);
 }
