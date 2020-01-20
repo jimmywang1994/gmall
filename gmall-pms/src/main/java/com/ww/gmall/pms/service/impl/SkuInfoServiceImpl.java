@@ -79,16 +79,23 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
         //链接缓存
         Jedis jedis = redisUtil.getJedis();
         //查询缓存
-        String skuKey = "sku" + id + "info";
+        String skuKey = "sku:" + id + ":info";
         String skuJson = jedis.get(skuKey);
         if (StringUtils.isNotBlank(skuJson)) {
             skuInfo1 = JSON.parseObject(skuJson, SkuInfo.class);
         } else {
             //如果缓存中没有，再查库
-            skuInfo1 = skuByIdFromDb(id);
+            //加分布式锁
+            String ok = jedis.set("sku:" + id + ":lock", "1", "nx", "px", 10);
+            if (StringUtils.isNotBlank(ok) && ok.equals("OK")) {
+                skuInfo1 = skuByIdFromDb(id);
+            } else {
+                //设置失败,自旋（该线程在睡眠几秒后，重新尝试访问）
+                skuById(id);
+            }
             if (skuInfo1 != null) {
                 //查完库中的结果放入缓存
-                jedis.set("sku:" + id + "info", JSON.toJSONString(skuInfo1));
+                jedis.set("sku:" + id + ":info", JSON.toJSONString(skuInfo1));
             }
         }
         jedis.close();
