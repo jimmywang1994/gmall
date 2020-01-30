@@ -32,11 +32,11 @@ public class SkuInfo implements Serializable {
 
     @ApiModelProperty(value = "库存id(itemID)")
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private String id;
 
     @ApiModelProperty(value = "商品id")
     @TableField("product_id")
-    private Long productId;
+    private String productId;
 
     @ApiModelProperty(value = "价格")
     @TableField("price")
@@ -59,7 +59,7 @@ public class SkuInfo implements Serializable {
 
     @ApiModelProperty(value = "三级分类id（冗余)")
     @TableField("catalog3_id")
-    private Long catalog3Id;
+    private String catalog3Id;
 
     @ApiModelProperty(value = "默认显示图片(冗余)")
     @TableField("sku_default_img")

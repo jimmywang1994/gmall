@@ -44,7 +44,7 @@ public class SkuInfoController {
         Map<String, Object> skuInfoHashMap = new HashMap<>();
         for (SkuInfo skuInfo : skuInfoList) {
             String k = "";
-            String v = skuInfo.getId().toString();
+            String v = skuInfo.getId();
             List<SkuSaleAttrValue> skuSaleAttrValueList = skuInfo.getSkuSaleAttrValueList();
             for (SkuSaleAttrValue saleAttrValue : skuSaleAttrValueList) {
                 k += saleAttrValue.getSaleAttrValueId() + "|";
@@ -53,5 +53,10 @@ public class SkuInfoController {
         }
         String skuSaleAttrListJson = JSON.toJSONString(skuInfoHashMap);
         return skuSaleAttrListJson;
+    }
+
+    @RequestMapping("getAllSku")
+    public List<SkuInfo> getAllSku(@RequestParam("keyword")String keyword){
+        return skuInfoService.getAllSku(keyword);
     }
 }

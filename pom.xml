@@ -23,6 +23,8 @@
         <module>gmall-admin</module>
         <module>gmall-pms</module>
         <module>gmall-redisson-test</module>
+        <module>gmall-search-web</module>
+        <module>gmall-search-service</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

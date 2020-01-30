@@ -30,19 +30,19 @@ public class SkuAttrValue implements Serializable {
 
     @ApiModelProperty(value = "编号")
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private String id;
 
     @ApiModelProperty(value = "属性id（冗余)")
     @TableField("attr_id")
-    private Long attrId;
+    private String attrId;
 
     @ApiModelProperty(value = "属性值id")
     @TableField("value_id")
-    private Long valueId;
+    private String valueId;
 
     @ApiModelProperty(value = "skuid")
     @TableField("sku_id")
-    private Long skuId;
+    private String skuId;
 
 
 }

@@ -1,12 +1,10 @@
 package com.ww.gmall.pms.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ww.gmall.config.RedisUtil;
-import com.ww.gmall.pms.bean.SkuAttrValue;
-import com.ww.gmall.pms.bean.SkuImage;
-import com.ww.gmall.pms.bean.SkuInfo;
-import com.ww.gmall.pms.bean.SkuSaleAttrValue;
+import com.ww.gmall.pms.bean.*;
 import com.ww.gmall.pms.mapper.SkuAttrValueMapper;
 import com.ww.gmall.pms.mapper.SkuImageMapper;
 import com.ww.gmall.pms.mapper.SkuInfoMapper;
@@ -17,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -139,5 +138,20 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
     public List<SkuInfo> getSkuSaleAttrValueListBySku(String productId) {
         List<SkuInfo> skuInfoList = skuInfoMapper.getSkuSaleAttrValueListBySku(productId);
         return skuInfoList;
+    }
+
+    @Override
+    public List<SkuInfo> getAllSku(String catalog3Id) {
+        QueryWrapper<SkuInfo> wrapper=new QueryWrapper<>();
+        wrapper.eq("catalog3_id",catalog3Id);
+        List<SkuInfo> allSkuInfo = skuInfoMapper.selectList(wrapper);
+        for (SkuInfo skuInfo : allSkuInfo) {
+            String skuId = skuInfo.getId();
+            QueryWrapper<SkuAttrValue> wrapper2 = new QueryWrapper<>();
+            wrapper2.eq("sku_id", skuId);
+            List<SkuAttrValue> attrValueList=skuAttrValueMapper.selectList(wrapper2);
+            skuInfo.setSkuAttrValueList(attrValueList);
+        }
+        return allSkuInfo;
     }
 }

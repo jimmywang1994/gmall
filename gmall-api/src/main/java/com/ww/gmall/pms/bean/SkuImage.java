@@ -34,7 +34,7 @@ public class SkuImage implements Serializable {
 
     @ApiModelProperty(value = "商品id")
     @TableField("sku_id")
-    private Long skuId;
+    private String skuId;
 
     @ApiModelProperty(value = "图片名称（冗余）")
     @TableField("img_name")
