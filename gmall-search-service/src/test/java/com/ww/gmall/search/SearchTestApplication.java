@@ -2,7 +2,6 @@ package com.ww.gmall.search;
 
 import com.ww.gmall.pms.bean.SearchSkuInfo;
 import com.ww.gmall.pms.bean.SkuInfo;
-import com.ww.gmall.search.client.SearchClient;
 import io.searchbox.client.JestClient;
 import org.junit.Test;
 import org.junit.runner.RunWith;
