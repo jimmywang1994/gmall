@@ -4,10 +4,10 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ww.gmall.pms.bean.BaseAttrInfo">
-        <id column="id" property="id" />
-        <result column="attr_name" property="attrName" />
-        <result column="catalog3_id" property="catalog3Id" />
-        <result column="is_enabled" property="isEnabled" />
+        <id column="id" property="id"/>
+        <result column="attr_name" property="attrName"/>
+        <result column="catalog3_id" property="catalog3Id"/>
+        <result column="is_enabled" property="isEnabled"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -15,4 +15,15 @@
         id, attr_name, catalog3_id, is_enabled
     </sql>
 
+    <select id="getAttrValueByAttrId" resultMap="getAttrValueByAttrIdMap">
+        select b.*,b.id as b_id,v.*,v.id as v_id from pms_base_attr_info b,pms_base_attr_value v
+        where b.id=v.attr_id
+        and v.id in (${valueIdStr})
+    </select>
+    <resultMap id="getAttrValueByAttrIdMap" type="com.ww.gmall.pms.bean.BaseAttrInfo" autoMapping="true">
+        <result column="b_id" property="id"></result>
+        <collection property="attrValueList" ofType="com.ww.gmall.pms.bean.BaseAttrValue" autoMapping="true">
+            <result column="v_id" property="id"></result>
+        </collection>
+    </resultMap>
 </mapper>

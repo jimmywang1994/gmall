@@ -3,10 +3,12 @@ package com.ww.gmall.pms.controller;
 
 import com.ww.gmall.pms.bean.BaseAttrInfo;
 import com.ww.gmall.pms.service.BaseAttrInfoService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -39,5 +41,11 @@ public class BaseAttrInfoController {
     public String deleteAttrInfoById(@PathVariable("attrId") String attrId) {
         String result = baseAttrInfoService.deleAttr(attrId);
         return result;
+    }
+
+    @RequestMapping("getAttrValueByAttrId")
+    public List<BaseAttrInfo> getAttrValueByAttrId(@RequestParam("valueIdSet") Set<String> valueIdSet) {
+        List<BaseAttrInfo> attrInfoList = baseAttrInfoService.getAttrValueByAttrId(valueIdSet);
+        return attrInfoList;
     }
 }

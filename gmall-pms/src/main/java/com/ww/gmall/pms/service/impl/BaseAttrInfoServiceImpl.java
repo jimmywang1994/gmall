@@ -10,9 +10,10 @@ import com.ww.gmall.pms.service.BaseAttrInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
+//import org.apache.commons.lang.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -74,5 +75,12 @@ public class BaseAttrInfoServiceImpl extends ServiceImpl<BaseAttrInfoMapper, Bas
         wrapper.eq("attr_id", attrId);
         baseAttrValueMapper.delete(wrapper);
         return "success";
+    }
+
+    @Override
+    public List<BaseAttrInfo> getAttrValueByAttrId(Set<String> valueIdSet) {
+        String valueIdStr = org.apache.commons.lang.StringUtils.join(valueIdSet, ",");
+        List<BaseAttrInfo> attrValueByAttrId = baseAttrInfoMapper.getAttrValueByAttrId(valueIdStr);
+        return attrValueByAttrId;
     }
 }

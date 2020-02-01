@@ -4,6 +4,7 @@ import com.ww.gmall.pms.bean.BaseAttrInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -19,4 +20,6 @@ public interface BaseAttrInfoService extends IService<BaseAttrInfo> {
     String saveAttr(BaseAttrInfo baseAttrInfo);
 
     String deleAttr(String attrId);
+
+    List<BaseAttrInfo> getAttrValueByAttrId(Set<String> valueIdSet);
 }
