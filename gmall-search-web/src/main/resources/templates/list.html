@@ -65,18 +65,18 @@
 
 <br/>
 <div class="GM_ipone">
-    <div class="GM_ipone_bar">
-        <div class="GM_ipone_one a">
-            筛选条件
-        </div>
-        <i><img src="/list/image/right-@1x.png" alt=""></i>
-        <span th:if="${keyword}!=null" th:text="'&quot;'+${keyword}+'&quot;'">&quot;小米&quot;</span>
-        <a class="select-attr"   th:each="baseAttrValueSelected:${attrValueSelectedList}"    th:href="'list.html?'+${baseAttrValueSelected.urlParam}"   th:utext=" ${baseAttrValueSelected.valueName} +'<b> ✖ </b>'"  > 2G<b> ✖ </b>
-        </a>
-        <!-- <a class="select-attr"   href="#"      > 屏幕尺寸:5.1-5.5英寸<b> ✖ </b>
-        </a>-->
+<!--    <div class="GM_ipone_bar">-->
+<!--        <div class="GM_ipone_one a">-->
+<!--            筛选条件-->
+<!--        </div>-->
+<!--        <i><img src="/list/image/right-@1x.png" alt=""></i>-->
+<!--        <span th:if="${keyword}!=null" th:text="'&quot;'+${keyword}+'&quot;'">&quot;小米&quot;</span>-->
+<!--        <a class="select-attr"   th:each="baseAttrValueSelected:${attrValueSelectedList}"    th:href="'list.html?'+${baseAttrValueSelected.urlParam}"   th:utext=" ${baseAttrValueSelected.valueName} +'<b> ✖ </b>'"  > 2G<b> ✖ </b>-->
+<!--        </a>-->
+<!--        &lt;!&ndash; <a class="select-attr"   href="#"      > 屏幕尺寸:5.1-5.5英寸<b> ✖ </b>-->
+<!--        </a>&ndash;&gt;-->
 
-    </div>
+<!--    </div>-->
 </div>
  
 <!--商品筛选和排序-->
@@ -85,20 +85,20 @@
         <div class="GM_selector">
             <!--手机商品筛选-->
             <div class="title">
-                <h3><b th:text="${keyword}">默认关键字</b><em>商品筛选</em></h3>
+<!--                <h3><b th:text="${keyword}">默认关键字</b><em>商品筛选</em></h3>-->
 
             </div>
             <div class="GM_nav_logo">
 
                 <div class="GM_pre"  th:each="attrInfo:${attrList}">
-                    <div class="sl_key">
-                        <span th:text="${attrInfo.attrName}+':'">属性：</span>
-                    </div>
-                    <div class="sl_value">
-                        <ul>
-                            <li  th:each="attrValue:${attrInfo.attrValueList}"><a th:href="'/list.html?'+${urlParam}+'&valueId='+${attrValue.id}"  th:text="${attrValue.valueName}">属性值</a></li>
-                        </ul>
-                    </div>
+<!--                    <div class="sl_key">-->
+<!--                        <span th:text="${attrInfo.attrName}+':'">属性：</span>-->
+<!--                    </div>-->
+<!--                    <div class="sl_value">-->
+<!--                        <ul>-->
+<!--                            <li  th:each="attrValue:${attrInfo.attrValueList}"><a th:href="'/list.html?'+${urlParam}+'&valueId='+${attrValue.id}"  th:text="${attrValue.valueName}">属性值</a></li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
@@ -204,6 +204,7 @@
 
                             <p class="tab_R">
                                 <span th:text="'￥'+${#numbers.formatDecimal(skuLsInfo.price,1,2)}">¥5199.00</span>
+<!--                                <span th:text="'￥'+${skuLsInfo.price}">¥5199.00</span>-->
                             </p>
 
                                 <a href="#" title=""   th:onclick="'javascript:item(\''+${skuLsInfo.id}+'\')'" class="tab_JE" th:utext="${skuLsInfo.skuName}" >

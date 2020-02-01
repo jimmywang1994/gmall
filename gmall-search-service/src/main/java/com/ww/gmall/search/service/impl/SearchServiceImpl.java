@@ -12,12 +12,15 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SearchServiceImpl implements SearchService {
@@ -26,8 +29,9 @@ public class SearchServiceImpl implements SearchService {
     JestClient jestClient;
 
     @Override
-    public List<SearchSkuInfo> list(SkuInfoParam skuInfoParam) {
-        String dslStr = getDslString(skuInfoParam);
+    public List<SearchSkuInfo> list(String catalog3Id,
+                                    String keyword) {
+        String dslStr = getDslString(catalog3Id, keyword);
         Search search = new Search.Builder(dslStr).addIndex("gmall").addType("SkuInfo").build();
         List<SearchSkuInfo> searchSkuInfoList = new ArrayList<>();
         SearchResult result = null;
@@ -39,29 +43,33 @@ public class SearchServiceImpl implements SearchService {
         List<SearchResult.Hit<SearchSkuInfo, Void>> hits = result.getHits(SearchSkuInfo.class);
         for (SearchResult.Hit<SearchSkuInfo, Void> hit : hits) {
             SearchSkuInfo searchSkuInfo = hit.source;
+            Map<String, List<String>> highlight = hit.highlight;
+            if(highlight!=null){
+                String skuName = highlight.get("skuName").get(0);
+                searchSkuInfo.setSkuName(skuName);
+            }
             searchSkuInfoList.add(searchSkuInfo);
         }
-        return null;
+        return searchSkuInfoList;
     }
 
-    private String getDslString(SkuInfoParam skuInfoParam) {
+    private String getDslString(String catalog3Id,
+                                String keyword) {
         //筛选条件列表
-        List<SkuAttrValue> skuAttrValueList = skuInfoParam.getSkuAttrValueList();
+        //List<SkuAttrValue> skuAttrValueList = skuInfoParam.getSkuAttrValueList();
         //搜索关键字
-        String keyword = skuInfoParam.getKeyword();
-        //三级分类id
-        String catalog3Id = skuInfoParam.getCatalog3Id();
+
         //jest的dsl工具
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         //bool
         BoolQueryBuilder boolQueryBuilder = new BoolQueryBuilder();
         //filter
-        if (skuAttrValueList != null) {
-            for (SkuAttrValue skuAttrValue : skuAttrValueList) {
-                TermQueryBuilder termQueryBuilder = new TermQueryBuilder("skuAttrValueList.valueId", skuAttrValue.getValueId());
-                boolQueryBuilder.filter(termQueryBuilder);
-            }
-        }
+//        if (skuAttrValueList != null) {
+//            for (SkuAttrValue skuAttrValue : skuAttrValueList) {
+//                TermQueryBuilder termQueryBuilder = new TermQueryBuilder("skuAttrValueList.valueId", skuAttrValue.getValueId());
+//                boolQueryBuilder.filter(termQueryBuilder);
+//            }
+//        }
         //must
         if (StringUtils.isNotBlank(keyword)) {
             MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder("skuName", keyword);
@@ -74,6 +82,12 @@ public class SearchServiceImpl implements SearchService {
         searchSourceBuilder.query(boolQueryBuilder);
         searchSourceBuilder.from(0);
         searchSourceBuilder.size(20);
+        searchSourceBuilder.sort("id", SortOrder.DESC);
+        HighlightBuilder highlightBuilder = new HighlightBuilder();
+        highlightBuilder.preTags("<span style='color:red'>");
+        highlightBuilder.field("skuName");
+        highlightBuilder.postTags("</span>");
+        searchSourceBuilder.highlighter(highlightBuilder);
         return searchSourceBuilder.toString();
     }
 }

@@ -56,7 +56,7 @@ public class SkuInfoController {
     }
 
     @RequestMapping("getAllSku")
-    public List<SkuInfo> getAllSku(@RequestParam("keyword")String keyword){
-        return skuInfoService.getAllSku(keyword);
+    public List<SkuInfo> getAllSku(@RequestParam("catalog3Id")String catalog3Id){
+        return skuInfoService.getAllSku(catalog3Id);
     }
 }
