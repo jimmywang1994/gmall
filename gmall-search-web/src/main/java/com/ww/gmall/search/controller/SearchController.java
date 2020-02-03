@@ -61,15 +61,26 @@ public class SearchController {
         String urlParam = getUrlParam(catalog3Id, keyword, valueIds);
         modelMap.put("urlParam", urlParam);
         if (StringUtils.isNotBlank(keyword)) {
-            modelMap.put("keyword", urlParam);
+            modelMap.put("keyword", keyword);
         }
         //面包屑
         List<SearchCrumb> searchCrumbList = new ArrayList<>();
+        if (valueIds != null) {
+            //如果valueIds不为空，则说明当前请求中包含属性的参数，每一个属性的参数，都会生成一个面包屑
+            for (String valueId : valueIds) {
+                SearchCrumb searchCrumb = new SearchCrumb();
+                //生成面包屑的参数
+                searchCrumb.setValueId(valueId);
+                searchCrumb.setValueName(valueId);
+                searchCrumb.setUrlParam(getUrlParam(catalog3Id, keyword, valueIds, valueId));
+                searchCrumbList.add(searchCrumb);
+            }
+        }
         modelMap.put("attrValueSelectedList", searchCrumbList);
         return "list";
     }
 
-    private String getUrlParam(String catalog3Id, String keyword, String[] valueIds) {
+    private String getUrlParam(String catalog3Id, String keyword, String[] valueIds, String... delValueId) {
         String urlParam = "";
         if (StringUtils.isNotBlank(catalog3Id)) {
             if (StringUtils.isNotBlank(urlParam)) {
@@ -84,9 +95,24 @@ public class SearchController {
             urlParam = urlParam + "keyword=" + keyword;
         }
         if (valueIds != null) {
-            for (String valueId : valueIds) {
-                urlParam = urlParam + "&valueIds=" + valueId;
+            for (String skuAttrValue : valueIds) {
+                //当前url参数，当面包屑请求中含有当前valueId时，不把当前valueId加到url参数中
+                if(delValueId != null && delValueId.length > 0){
+                    if (!skuAttrValue.equals(delValueId[0])) {
+                        urlParam = urlParam + "&valueIds=" + skuAttrValue;
+                    }
+                }else{
+                    urlParam = urlParam + "&valueIds=" + skuAttrValue;
+                }
+//                for (String s : delValueId) {
+//                    if (null != s && !"".equals(s)) {
+//                        if (!skuAttrValue.equals(s)) {
+//                            urlParam = urlParam + "&valueIds=" + skuAttrValue;
+//                        }
+//                    }
+//                }
             }
+
         }
         return urlParam;
     }

@@ -13,10 +13,10 @@
         <module name="gmall-search-service" />
         <module name="gmall-eureka-server" />
         <module name="gmall-user" />
-        <module name="gmall-boot-admin" />
+        <module name="gmall-item-web" />
         <module name="gmall-api" />
         <module name="gmall-pms" />
-        <module name="gmall-item-web" />
+        <module name="gmall-boot-admin" />
         <module name="gmall-admin" />
       </profile>
     </annotationProcessing>
