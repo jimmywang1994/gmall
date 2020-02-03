@@ -9,10 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class SearchController {
@@ -63,6 +60,12 @@ public class SearchController {
         }
         String urlParam = getUrlParam(catalog3Id, keyword, valueIds);
         modelMap.put("urlParam", urlParam);
+        if (StringUtils.isNotBlank(keyword)) {
+            modelMap.put("keyword", urlParam);
+        }
+        //面包屑
+        List<SearchCrumb> searchCrumbList = new ArrayList<>();
+        modelMap.put("attrValueSelectedList", searchCrumbList);
         return "list";
     }
 
