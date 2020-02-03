@@ -2,6 +2,7 @@ package com.ww.gmall.search.client;
 
 import com.ww.gmall.pms.bean.SearchSkuInfo;
 import com.ww.gmall.pms.bean.SkuInfoParam;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,5 +13,6 @@ import java.util.List;
 public interface SearchClient {
     @RequestMapping("/search-service/list")
     public List<SearchSkuInfo> searchSkuInfoList(@RequestParam(required = false)String catalog3Id,
-                                                 @RequestParam(required = false)String keyword);
+                                                 @RequestParam(required = false)String keyword,
+                                                 @RequestParam(required = false)String[] valueIds);
 }

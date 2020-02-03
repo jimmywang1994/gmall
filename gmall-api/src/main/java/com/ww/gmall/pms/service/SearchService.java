@@ -14,5 +14,6 @@ public interface SearchService {
      * @return
      */
     List<SearchSkuInfo> list(String catalog3Id,
-                             String keyword);
+                             String keyword,
+                             String[] valueIds);
 }

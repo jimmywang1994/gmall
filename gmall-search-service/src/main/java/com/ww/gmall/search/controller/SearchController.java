@@ -30,9 +30,10 @@ public class SearchController {
 
     @RequestMapping("list")
     public List<SearchSkuInfo> list(@RequestParam(required = false)String catalog3Id,
-                                    @RequestParam(required = false)String keyword) {
+                                    @RequestParam(required = false)String keyword,
+                                    @RequestParam(required = false)String[] valueIds) {
         List<SearchSkuInfo> searchSkuInfoList = new ArrayList<>();
-        searchSkuInfoList = searchService.list(catalog3Id,keyword);
+        searchSkuInfoList = searchService.list(catalog3Id,keyword,valueIds);
         return searchSkuInfoList;
     }
 

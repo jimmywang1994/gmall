@@ -17,6 +17,7 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -32,8 +33,8 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public List<SearchSkuInfo> list(String catalog3Id,
-                                    String keyword) {
-        String dslStr = getDslString(catalog3Id, keyword);
+                                    String keyword, String[] valueIds) {
+        String dslStr = getDslString(catalog3Id, keyword, valueIds);
         Search search = new Search.Builder(dslStr).addIndex("gmall").addType("SkuInfo").build();
         List<SearchSkuInfo> searchSkuInfoList = new ArrayList<>();
         SearchResult result = null;
@@ -46,7 +47,7 @@ public class SearchServiceImpl implements SearchService {
         for (SearchResult.Hit<SearchSkuInfo, Void> hit : hits) {
             SearchSkuInfo searchSkuInfo = hit.source;
             Map<String, List<String>> highlight = hit.highlight;
-            if(highlight!=null){
+            if (highlight != null) {
                 String skuName = highlight.get("skuName").get(0);
                 searchSkuInfo.setSkuName(skuName);
             }
@@ -56,7 +57,7 @@ public class SearchServiceImpl implements SearchService {
     }
 
     private String getDslString(String catalog3Id,
-                                String keyword) {
+                                String keyword, String[] valueIds) {
         //筛选条件列表
         //List<SkuAttrValue> skuAttrValueList = skuInfoParam.getSkuAttrValueList();
         //搜索关键字
@@ -66,12 +67,12 @@ public class SearchServiceImpl implements SearchService {
         //bool
         BoolQueryBuilder boolQueryBuilder = new BoolQueryBuilder();
         //filter
-//        if (skuAttrValueList != null) {
-//            for (SkuAttrValue skuAttrValue : skuAttrValueList) {
-//                TermQueryBuilder termQueryBuilder = new TermQueryBuilder("skuAttrValueList.valueId", skuAttrValue.getValueId());
-//                boolQueryBuilder.filter(termQueryBuilder);
-//            }
-//        }
+        if (valueIds != null) {
+            for (String valueId : valueIds) {
+                TermQueryBuilder termQueryBuilder = new TermQueryBuilder("skuAttrValueList.valueId", valueId);
+                boolQueryBuilder.filter(termQueryBuilder);
+            }
+        }
         //must
         if (StringUtils.isNotBlank(keyword)) {
             MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder("skuName", keyword);
