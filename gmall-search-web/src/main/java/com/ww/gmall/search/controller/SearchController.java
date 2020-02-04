@@ -43,40 +43,36 @@ public class SearchController {
         modelMap.put("attrList", baseAttrInfoList);
         //对平台属性集合进一步处理，去除已被选中的平台属性组
         if (valueIds != null) {
-            Iterator<BaseAttrInfo> attrInfoIterator = baseAttrInfoList.iterator();
-            while (attrInfoIterator.hasNext()) {
-                BaseAttrInfo baseAttrInfo = attrInfoIterator.next();
-                List<BaseAttrValue> attrValueList = baseAttrInfo.getAttrValueList();
-                for (BaseAttrValue attrValue : attrValueList) {
-                    String valueId = attrValue.getId().toString();
-                    for (String delId : valueIds) {
+            //面包屑
+            List<SearchCrumb> searchCrumbList = new ArrayList<>();
+            for (String delId : valueIds) {
+                Iterator<BaseAttrInfo> attrInfoIterator = baseAttrInfoList.iterator();//平台属性集合
+                SearchCrumb searchCrumb = new SearchCrumb();
+                //生成面包屑的参数
+                searchCrumb.setValueId(delId);
+                searchCrumb.setUrlParam(getUrlParam(catalog3Id, keyword, valueIds, delId));
+                while (attrInfoIterator.hasNext()) {
+                    BaseAttrInfo baseAttrInfo = attrInfoIterator.next();
+                    List<BaseAttrValue> attrValueList = baseAttrInfo.getAttrValueList();
+                    for (BaseAttrValue attrValue : attrValueList) {
+                        String valueId = attrValue.getId().toString();
                         if (delId.equals(valueId)) {
+                            //查找面包屑的属性名
+                            searchCrumb.setValueName(attrValue.getValueName());
                             //删除该属性值所在的属性组
                             attrInfoIterator.remove();
                         }
                     }
                 }
+                searchCrumbList.add(searchCrumb);
             }
+            modelMap.put("attrValueSelectedList", searchCrumbList);
         }
         String urlParam = getUrlParam(catalog3Id, keyword, valueIds);
         modelMap.put("urlParam", urlParam);
         if (StringUtils.isNotBlank(keyword)) {
             modelMap.put("keyword", keyword);
         }
-        //面包屑
-        List<SearchCrumb> searchCrumbList = new ArrayList<>();
-        if (valueIds != null) {
-            //如果valueIds不为空，则说明当前请求中包含属性的参数，每一个属性的参数，都会生成一个面包屑
-            for (String valueId : valueIds) {
-                SearchCrumb searchCrumb = new SearchCrumb();
-                //生成面包屑的参数
-                searchCrumb.setValueId(valueId);
-                searchCrumb.setValueName(valueId);
-                searchCrumb.setUrlParam(getUrlParam(catalog3Id, keyword, valueIds, valueId));
-                searchCrumbList.add(searchCrumb);
-            }
-        }
-        modelMap.put("attrValueSelectedList", searchCrumbList);
         return "list";
     }
 
@@ -97,20 +93,13 @@ public class SearchController {
         if (valueIds != null) {
             for (String skuAttrValue : valueIds) {
                 //当前url参数，当面包屑请求中含有当前valueId时，不把当前valueId加到url参数中
-                if(delValueId != null && delValueId.length > 0){
+                if (delValueId != null && delValueId.length > 0) {
                     if (!skuAttrValue.equals(delValueId[0])) {
                         urlParam = urlParam + "&valueIds=" + skuAttrValue;
                     }
-                }else{
+                } else {
                     urlParam = urlParam + "&valueIds=" + skuAttrValue;
                 }
-//                for (String s : delValueId) {
-//                    if (null != s && !"".equals(s)) {
-//                        if (!skuAttrValue.equals(s)) {
-//                            urlParam = urlParam + "&valueIds=" + skuAttrValue;
-//                        }
-//                    }
-//                }
             }
 
         }
