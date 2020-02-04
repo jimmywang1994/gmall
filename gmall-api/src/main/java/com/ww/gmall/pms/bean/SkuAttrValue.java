@@ -30,7 +30,7 @@ public class SkuAttrValue implements Serializable {
 
     @ApiModelProperty(value = "编号")
     @TableId(value = "id", type = IdType.AUTO)
-    private String id;
+    private Long id;
 
     @ApiModelProperty(value = "属性id（冗余)")
     @TableField("attr_id")
@@ -42,7 +42,7 @@ public class SkuAttrValue implements Serializable {
 
     @ApiModelProperty(value = "skuid")
     @TableField("sku_id")
-    private String skuId;
+    private Long skuId;
 
 
 }

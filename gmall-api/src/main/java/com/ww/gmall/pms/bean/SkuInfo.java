@@ -32,7 +32,7 @@ public class SkuInfo implements Serializable {
 
     @ApiModelProperty(value = "库存id(itemID)")
     @TableId(value = "id", type = IdType.AUTO)
-    private String id;
+    private Long id;
 
     @ApiModelProperty(value = "商品id")
     @TableField("product_id")

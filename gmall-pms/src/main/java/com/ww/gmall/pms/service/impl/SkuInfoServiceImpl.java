@@ -142,11 +142,9 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
 
     @Override
     public List<SkuInfo> getAllSku(String catalog3Id) {
-        QueryWrapper<SkuInfo> wrapper=new QueryWrapper<>();
-        wrapper.eq("catalog3_id",catalog3Id);
-        List<SkuInfo> allSkuInfo = skuInfoMapper.selectList(wrapper);
+        List<SkuInfo> allSkuInfo = skuInfoMapper.selectList(null);
         for (SkuInfo skuInfo : allSkuInfo) {
-            String skuId = skuInfo.getId();
+            String skuId = skuInfo.getId().toString();
             QueryWrapper<SkuAttrValue> wrapper2 = new QueryWrapper<>();
             wrapper2.eq("sku_id", skuId);
             List<SkuAttrValue> attrValueList=skuAttrValueMapper.selectList(wrapper2);

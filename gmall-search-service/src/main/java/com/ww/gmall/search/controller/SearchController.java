@@ -48,7 +48,7 @@ public class SearchController {
         for (SkuInfo skuInfo : skuInfoList) {
             SearchSkuInfo searchSkuInfo = new SearchSkuInfo();
             BeanUtils.copyProperties(skuInfo, searchSkuInfo);
-            searchSkuInfo.setId(Long.parseLong(skuInfo.getId()));
+            searchSkuInfo.setId(skuInfo.getId());
             searchSkuInfoList.add(searchSkuInfo);
         }
         for (SearchSkuInfo searchSkuInfo : searchSkuInfoList) {

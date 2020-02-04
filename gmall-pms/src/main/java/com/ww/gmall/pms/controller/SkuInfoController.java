@@ -44,7 +44,7 @@ public class SkuInfoController {
         Map<String, Object> skuInfoHashMap = new HashMap<>();
         for (SkuInfo skuInfo : skuInfoList) {
             String k = "";
-            String v = skuInfo.getId();
+            Long v = skuInfo.getId();
             List<SkuSaleAttrValue> skuSaleAttrValueList = skuInfo.getSkuSaleAttrValueList();
             for (SkuSaleAttrValue saleAttrValue : skuSaleAttrValueList) {
                 k += saleAttrValue.getSaleAttrValueId() + "|";

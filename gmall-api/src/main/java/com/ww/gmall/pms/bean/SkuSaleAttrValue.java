@@ -34,7 +34,7 @@ public class SkuSaleAttrValue implements Serializable {
 
     @ApiModelProperty(value = "库存单元id")
     @TableField("sku_id")
-    private String skuId;
+    private Long skuId;
 
     @ApiModelProperty(value = "销售属性id（冗余)")
     @TableField("sale_attr_id")
