@@ -1,4 +1,4 @@
-package com.ww.gmall.cart.mapper.mapper;
+package com.ww.gmall.cart.mapper;
 
 import com.ww.gmall.oms.bean.OrderReturnReason;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

@@ -1,8 +1,8 @@
 package com.ww.gmall.cart.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ww.gmall.cart.mapper.OrderItemMapper;
 import com.ww.gmall.oms.bean.OrderItem;
-import com.ww.gmall.oms.mapper.OrderItemMapper;
 import com.ww.gmall.oms.service.OrderItemService;
 import org.springframework.stereotype.Service;
 
