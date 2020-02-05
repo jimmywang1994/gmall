@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import io.swagger.annotations.ApiModel;
@@ -40,7 +41,7 @@ public class SkuInfo implements Serializable {
 
     @ApiModelProperty(value = "价格")
     @TableField("price")
-    private Double price;
+    private BigDecimal price;
 
     @ApiModelProperty(value = "sku名称")
     @TableField("sku_name")
@@ -59,7 +60,7 @@ public class SkuInfo implements Serializable {
 
     @ApiModelProperty(value = "三级分类id（冗余)")
     @TableField("catalog3_id")
-    private String catalog3Id;
+    private Long catalog3Id;
 
     @ApiModelProperty(value = "默认显示图片(冗余)")
     @TableField("sku_default_img")
