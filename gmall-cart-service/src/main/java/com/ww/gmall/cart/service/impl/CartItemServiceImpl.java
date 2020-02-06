@@ -1,5 +1,6 @@
 package com.ww.gmall.cart.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ww.gmall.cart.mapper.CartItemMapper;
@@ -10,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -49,9 +52,19 @@ public class CartItemServiceImpl extends ServiceImpl<CartItemMapper, CartItem> i
     public void flushCartCache(String memberId) {
         QueryWrapper<CartItem> wrapper = new QueryWrapper<>();
         wrapper.eq("member_id", memberId);
-        List<CartItem> cartItem=cartItemMapper.selectList(wrapper);
+        List<CartItem> cartItems = cartItemMapper.selectList(wrapper);
         //同步到redis缓存中
         Jedis jedis = redisUtil.getJedis();
-
+        try {
+            Map<String, String> map = new HashMap<>();
+            for (CartItem item : cartItems) {
+                map.put(item.getProductSkuId(), JSON.toJSONString(item));
+            }
+            jedis.hmset("user:" + memberId + ":cart", map);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            jedis.close();
+        }
     }
 }

@@ -48,7 +48,7 @@ public class CartController {
         cartItem.setProductSkuId(skuId);
         cartItem.setQuantity(quantity);
         //判断用户是否登录
-        String memberId = "";
+        String memberId = "1";
         if (StringUtils.isBlank(memberId)) {
             //用户未登录
             //购物车cookie
@@ -77,14 +77,14 @@ public class CartController {
         } else {
             //用户已登录
             //DB中查询购物车数据
-            CartItem cartItemFromDb = cartClient.ifExistCartsByUser(memberId,skuId);
+            CartItem cartItemFromDb = cartClient.ifExistCartsByUser(memberId, skuId);
             if (cartItemFromDb == null) {
                 //该用户没有添加过当前商品
                 cartItem.setMemberId(Long.parseLong(memberId));
                 cartClient.addCart(cartItem);
             } else {
                 //该用户添加过当前商品
-                cartItemFromDb.setQuantity(cartItem.getQuantity());
+                cartItemFromDb.setQuantity(cartItemFromDb.getQuantity() + cartItem.getQuantity());
                 cartClient.updateCart(cartItemFromDb);
             }
             //同步缓存
