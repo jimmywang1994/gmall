@@ -3,6 +3,8 @@ package com.ww.gmall.oms.service;
 import com.ww.gmall.oms.bean.CartItem;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 购物车表 服务类
@@ -25,4 +27,8 @@ public interface CartItemService extends IService<CartItem> {
     void updateCart(CartItem cartItemFromDb);
 
     void flushCartCache(String memberId);
+
+    List<CartItem> cartList(String memberId);
+
+    void checkCart(CartItem cartItem);
 }

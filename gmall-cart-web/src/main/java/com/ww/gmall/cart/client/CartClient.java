@@ -26,4 +26,10 @@ public interface CartClient {
 
     @RequestMapping("/oms/cart-item/flushCartCache")
     void flushCartCache(@RequestParam("memberId") String memberId);
+
+    @RequestMapping("/oms/cart-item/cartList")
+    List<CartItem> cartList(@RequestParam("memberId") String memberId);
+
+    @RequestMapping("/oms/cart-item/checkCart")
+    void checkCart(@RequestBody CartItem cartItem);
 }

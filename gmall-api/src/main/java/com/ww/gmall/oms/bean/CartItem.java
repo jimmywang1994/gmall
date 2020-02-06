@@ -44,7 +44,7 @@ public class CartItem implements Serializable {
 
     @ApiModelProperty(value = "购买数量")
     @TableField("quantity")
-    private Integer quantity;
+    private BigDecimal quantity;
 
     @ApiModelProperty(value = "添加到购物车的价格")
     @TableField("price")
@@ -108,5 +108,10 @@ public class CartItem implements Serializable {
     @TableField("product_attr")
     private String productAttr;
 
+    @ApiModelProperty(value = "是否选中")
+    @TableField("is_checked")
+    private String isChecked;
 
+    @TableField(exist = false)
+    private BigDecimal totalPrice;
 }
