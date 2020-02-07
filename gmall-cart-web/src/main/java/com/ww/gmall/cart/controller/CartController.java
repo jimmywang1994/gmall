@@ -2,6 +2,7 @@ package com.ww.gmall.cart.controller;
 
 import ch.qos.logback.core.util.COWArrayList;
 import com.alibaba.fastjson.JSON;
+import com.ww.gmall.annotation.LoginRequired;
 import com.ww.gmall.cart.client.CartClient;
 import com.ww.gmall.cart.client.SkuClient;
 import com.ww.gmall.oms.bean.CartItem;
@@ -29,7 +30,19 @@ public class CartController {
     @Autowired
     CartClient cartClient;
 
+    /**
+     * 跳转结算页
+     *
+     * @return
+     */
+    @RequestMapping("toTrade")
+    @LoginRequired(loginSuccess = true)
+    public String toTrade(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
+        return "toTradeTest";
+    }
+
     @RequestMapping("addToCart")
+    @LoginRequired(loginSuccess = false)
     public String addToCart(@RequestParam("skuId") String skuId, int quantity, HttpServletRequest request, HttpServletResponse response) {
         //调用商品服务查询商品信息
         SkuInfo skuInfo = skuClient.skuById(skuId, request.getRemoteAddr());
@@ -151,7 +164,7 @@ public class CartController {
         BigDecimal totalAmount = new BigDecimal("0");
         for (CartItem cartItem : cartItemList) {
             BigDecimal totalPrice = cartItem.getTotalPrice();
-            if(cartItem.getIsChecked().equals("1")) {
+            if (cartItem.getIsChecked().equals("1")) {
                 totalAmount = totalAmount.add(totalPrice);
             }
         }
