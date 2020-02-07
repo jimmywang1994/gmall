@@ -4,3 +4,4 @@ server.port=8060 search_service模块
 server.port=8050 search_web模块
 server.port=8040 cart_service模块
 server.port=8030 cart_service模块
+server.port=8020 gmall-passport-web模块

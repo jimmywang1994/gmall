@@ -15,6 +15,7 @@
         <module name="gmall-api" />
         <module name="gmall-boot-admin" />
         <module name="gmall-pms" />
+        <module name="gmall-passport-web" />
         <module name="gmall-admin" />
         <module name="gmall-cart-web" />
         <module name="gmall-search-web" />
@@ -39,6 +40,7 @@
       <module name="gmall-cart-web" options="-parameters" />
       <module name="gmall-eureka-server" options="-parameters" />
       <module name="gmall-item-web" options="-parameters" />
+      <module name="gmall-passport-web" options="-parameters" />
       <module name="gmall-plugin" options="-parameters" />
       <module name="gmall-pms" options="-parameters" />
       <module name="gmall-redisson-test" options="-parameters" />
