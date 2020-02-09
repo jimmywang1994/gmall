@@ -38,6 +38,7 @@ public class CartController {
     @RequestMapping("toTrade")
     @LoginRequired(loginSuccess = true)
     public String toTrade(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
+        String memberId = (String)request.getAttribute("memberId");
         return "toTradeTest";
     }
 
@@ -63,6 +64,7 @@ public class CartController {
         cartItem.setQuantity(BigDecimal.valueOf((int) quantity));
         //判断用户是否登录
         String memberId = "1";
+        memberId = request.getAttribute("memberId").toString();
         if (StringUtils.isBlank(memberId)) {
             //用户未登录
             //购物车cookie
