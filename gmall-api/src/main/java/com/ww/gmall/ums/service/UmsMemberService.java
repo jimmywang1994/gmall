@@ -15,4 +15,11 @@ import java.util.List;
  */
 public interface UmsMemberService extends IService<UmsMember> {
     List<UmsMember> selectAllMember();
+
+    /**
+     * 验证用户登录
+     * @param umsMember
+     * @return
+     */
+    UmsMember login(UmsMember umsMember);
 }

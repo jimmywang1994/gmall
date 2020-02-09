@@ -1,5 +1,6 @@
 package com.ww.gmall.search.controller;
 
+import com.ww.gmall.annotation.LoginRequired;
 import com.ww.gmall.pms.bean.*;
 import com.ww.gmall.search.client.SearchClient;
 import com.ww.gmall.search.client.SkuClient;
@@ -19,6 +20,7 @@ public class SearchController {
     SkuClient skuClient;
 
     @RequestMapping("index")
+    @LoginRequired(loginSuccess = false)
     public String index() {
         return "index";
     }

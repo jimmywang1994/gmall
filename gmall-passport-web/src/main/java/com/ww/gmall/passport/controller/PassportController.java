@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class PassportController {
     @RequestMapping("index")
-    public String index(@RequestParam("ReturnUrl") String ReturnUrl, ModelMap modelMap){
-        modelMap.put("ReturnUrl",ReturnUrl);
+    public String index(@RequestParam("ReturnUrl") String returnUrl, ModelMap modelMap){
+        modelMap.put("ReturnUrl",returnUrl);
         return "index";
     }
 

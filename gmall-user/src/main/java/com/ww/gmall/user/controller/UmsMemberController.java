@@ -4,6 +4,7 @@ package com.ww.gmall.user.controller;
 import com.ww.gmall.ums.bean.UmsMember;
 import com.ww.gmall.ums.service.UmsMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +29,11 @@ public class UmsMemberController {
     public List<UmsMember> allMembers(){
         List<UmsMember> umsMembers=umsMemberService.selectAllMember();
         return umsMembers;
+    }
+
+    @RequestMapping("login")
+    public UmsMember login(@RequestBody UmsMember umsMember){
+        return null;
     }
 
 }

@@ -28,10 +28,12 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
         String token = "";
+        //老token就是cookie里保存的token
         String oldToken = CookieUtil.getCookieValue(request, "oldToken", true);
         if (StringUtil.isNotBlank(oldToken)) {
             token = oldToken;
         }
+        //新token是认证中心带的token
         String newToken = request.getParameter("token");
         if (StringUtil.isNotBlank(newToken)) {
             token = newToken;
@@ -48,23 +50,28 @@ public class AuthInterceptor implements HandlerInterceptor {
             //必须登录成功才能使用
             if (!CommonContant.SUCCESS.equals(success)) {
                 //重定向回passport登录
+                //returnUrl:原始请求路径
                 StringBuffer requestUrl = request.getRequestURL();
                 response.sendRedirect("http://passport.gmall.com:8020/index?ReturnUrl=" + requestUrl);
                 return false;
             } else {
-                //验证通过,覆盖cookie中的token
 
                 request.setAttribute("memberId", "");
+                //验证通过，覆盖cookie中原有的token
+                if(StringUtil.isNotBlank(token)) {
+                    CookieUtil.setCookie(request, response, "oldToken", token, 60 * 2 * 60, true);
+                }
             }
         } else {
             //可以不登录，但必须验证token
             if (CommonContant.SUCCESS.equals(success)) {
                 //需要将token携带的用户信息写入cookie
                 request.setAttribute("memberId", "");
+                //验证通过，覆盖cookie中原有的token
+                if(StringUtil.isNotBlank(token)) {
+                    CookieUtil.setCookie(request, response, "oldToken", token, 60 * 2 * 60, true);
+                }
             }
-        }
-        if(StringUtil.isNotBlank(token)) {
-            CookieUtil.setCookie(request, response, "oldToken", token, 60 * 2 * 60, true);
         }
         return true;
     }
