@@ -19,7 +19,6 @@
         <module>gmall-api</module>
         <module>gmall-eureka-server</module>
         <module>gmall-boot-admin</module>
-        <module>gmall-admin-web</module>
         <module>gmall-admin</module>
         <module>gmall-pms</module>
         <module>gmall-redisson-test</module>

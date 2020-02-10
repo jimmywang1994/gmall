@@ -29,8 +29,8 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
 
     @Autowired
     UmsMemberMapper umsMemberMapper;
-//    @Autowired
-//    RedisUtil redisUtil;
+    @Autowired
+    RedisUtil redisUtil;
 
     @Override
     public List<UmsMember> selectAllMember() {
@@ -39,28 +39,28 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
 
     @Override
     public UmsMember login(UmsMember umsMember) {
-//        Jedis jedis = null;
-//        try {
-//            jedis = redisUtil.getJedis();
-//            if (jedis != null) {
-//                String userMemberStr = jedis.get("user:" + umsMember.getPassword() + ":password");
-//                if (StringUtil.isNotBlank(userMemberStr)) {
-//                    //密码正确
-//                    UmsMember memberFromCache = JSON.parseObject(userMemberStr, UmsMember.class);
-//                    return memberFromCache;
-//                }
-//            }
-//            //链接redis失败，开启数据库
-//            UmsMember memberFromDb = loginFromDb(umsMember);
-//            if (memberFromDb != null) {
-//                jedis.setex("user:" + memberFromDb.getPassword() + ":info", 60 * 60 * 24, JSON.toJSONString(memberFromDb));
-//            }
-//            return memberFromDb;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            jedis.close();
-//        }
+        Jedis jedis = null;
+        try {
+            jedis = redisUtil.getJedis();
+            if (jedis != null) {
+                String userMemberStr = jedis.get("user:" + umsMember.getPassword() + ":password");
+                if (StringUtil.isNotBlank(userMemberStr)) {
+                    //密码正确
+                    UmsMember memberFromCache = JSON.parseObject(userMemberStr, UmsMember.class);
+                    return memberFromCache;
+                }
+            }
+            //链接redis失败，开启数据库
+            UmsMember memberFromDb = loginFromDb(umsMember);
+            if (memberFromDb != null) {
+                jedis.setex("user:" + memberFromDb.getPassword() + ":info", 60 * 60 * 24, JSON.toJSONString(memberFromDb));
+            }
+            return memberFromDb;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            jedis.close();
+        }
         return null;
     }
 
