@@ -38,7 +38,8 @@ public class CartController {
     @RequestMapping("toTrade")
     @LoginRequired(loginSuccess = true)
     public String toTrade(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
-        String memberId = (String)request.getAttribute("memberId");
+        String memberId = (String) request.getAttribute("memberId");
+        String nickname = (String) request.getAttribute("nickname");
         return "toTradeTest";
     }
 
@@ -63,8 +64,8 @@ public class CartController {
         cartItem.setProductSkuId(skuId);
         cartItem.setQuantity(BigDecimal.valueOf((int) quantity));
         //判断用户是否登录
-        String memberId = "1";
-        memberId = request.getAttribute("memberId").toString();
+        String memberId = (String) request.getAttribute("memberId");
+        String nickname = (String) request.getAttribute("nickname");
         if (StringUtils.isBlank(memberId)) {
             //用户未登录
             //购物车cookie
@@ -111,7 +112,8 @@ public class CartController {
 
     @RequestMapping("cartList")
     public String cartList(HttpServletRequest request, ModelMap modelMap) {
-        String memberId = "1";
+        String memberId = (String) request.getAttribute("memberId");
+        String nickname = (String) request.getAttribute("nickname");
         List<CartItem> cartItemList = new ArrayList<>();
         if (StringUtils.isNotBlank(memberId)) {
             cartItemList = cartClient.cartList(memberId);
@@ -143,12 +145,14 @@ public class CartController {
      */
     @RequestMapping("checkCart")
     public String checkCart(@RequestParam("isChecked") String isChecked, @RequestParam("skuId") String skuId, HttpServletRequest request, ModelMap modelMap) {
-        String memberId = "1";
+        String memberId = (String) request.getAttribute("memberId");
+        String nickname = (String) request.getAttribute("nickname");
         //修改状态
         CartItem cartItem = new CartItem();
         cartItem.setProductSkuId(skuId);
         cartItem.setIsChecked(isChecked);
         cartItem.setMemberId(Long.parseLong(memberId));
+        cartItem.setMemberNickname(nickname);
         cartClient.checkCart(cartItem);
         //将最新的数据从缓存中查出，渲染给内嵌页
         List<CartItem> cartItemList = cartClient.cartList(memberId);

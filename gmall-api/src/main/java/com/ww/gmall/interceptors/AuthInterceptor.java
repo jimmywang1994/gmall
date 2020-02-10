@@ -1,5 +1,6 @@
 package com.ww.gmall.interceptors;
 
+import com.alibaba.fastjson.JSON;
 import com.ww.gmall.Contants.CommonContant;
 import com.ww.gmall.annotation.LoginRequired;
 import com.ww.gmall.util.CookieUtil;
@@ -14,6 +15,8 @@ import sun.net.www.http.HttpClient;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.invoke.MethodHandle;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
@@ -41,9 +44,20 @@ public class AuthInterceptor implements HandlerInterceptor {
         //获得该请求是否必须登录成功
         boolean loginSuccess = methodAnnotation.loginSuccess();
         //调用认证中心验证
-        String success="fail";
-        if(StringUtil.isBlank(token)) {
-            success = HttpClientUtil.doGet("http://passport.gmall.com:8020/verify?token=" + token);
+        String success = "fail";
+        Map<String, String> successMap = new HashMap<>();
+        //如果token不为空，去认证中心验证token是否正确
+        if (StringUtil.isNotBlank(token)) {
+            //主机的ip
+            String remoteAddr = request.getRemoteAddr();
+            //通过nginx转发的客户端ip
+            String ip = request.getHeader("x-forwarded-for");
+            if (StringUtil.isBlank(ip)) {
+                ip = remoteAddr;
+            }
+            String successJson = HttpClientUtil.doGet("http://passport.gmall.com:8020/verify?token=" + token + "&currentIp=" + ip);
+            successMap = JSON.parseObject(successJson, Map.class);
+            success = successMap.get("status");
         }
         //是否必须登录
         if (loginSuccess) {
@@ -55,10 +69,10 @@ public class AuthInterceptor implements HandlerInterceptor {
                 response.sendRedirect("http://passport.gmall.com:8020/index?ReturnUrl=" + requestUrl);
                 return false;
             } else {
-
-                request.setAttribute("memberId", "");
+                request.setAttribute("memberId", successMap.get("memberId"));
+                request.setAttribute("nickname", successMap.get("nickname"));
                 //验证通过，覆盖cookie中原有的token
-                if(StringUtil.isNotBlank(token)) {
+                if (StringUtil.isNotBlank(token)) {
                     CookieUtil.setCookie(request, response, "oldToken", token, 60 * 2 * 60, true);
                 }
             }
@@ -66,9 +80,10 @@ public class AuthInterceptor implements HandlerInterceptor {
             //可以不登录，但必须验证token
             if (CommonContant.SUCCESS.equals(success)) {
                 //需要将token携带的用户信息写入cookie
-                request.setAttribute("memberId", "");
+                request.setAttribute("memberId", successMap.get("memberId"));
+                request.setAttribute("nickname", successMap.get("nickname"));
                 //验证通过，覆盖cookie中原有的token
-                if(StringUtil.isNotBlank(token)) {
+                if (StringUtil.isNotBlank(token)) {
                     CookieUtil.setCookie(request, response, "oldToken", token, 60 * 2 * 60, true);
                 }
             }

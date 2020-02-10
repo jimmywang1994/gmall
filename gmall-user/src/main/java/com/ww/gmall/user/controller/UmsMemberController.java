@@ -6,6 +6,7 @@ import com.ww.gmall.ums.service.UmsMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -32,9 +33,15 @@ public class UmsMemberController {
     }
 
     @RequestMapping("login")
-    public UmsMember login(@RequestBody UmsMember umsMember) {
-        UmsMember member = umsMemberService.login(umsMember);
+    public UmsMember login(@RequestParam("username") String userName,
+                           @RequestParam("password") String passWord) {
+        UmsMember member = umsMemberService.login(userName, passWord);
         return member;
+    }
+
+    @RequestMapping("addToken")
+    public void addToken(@RequestParam("token") String token, @RequestParam("memberId") String memberId) {
+        umsMemberService.addToken(token, memberId);
     }
 
 }

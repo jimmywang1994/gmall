@@ -18,8 +18,11 @@ public interface UmsMemberService extends IService<UmsMember> {
 
     /**
      * 验证用户登录
-     * @param umsMember
+     * @param userName
+     * @param passWord
      * @return
      */
-    UmsMember login(UmsMember umsMember);
+    UmsMember login(String userName,String passWord);
+
+    void addToken(String token,String memberId);
 }

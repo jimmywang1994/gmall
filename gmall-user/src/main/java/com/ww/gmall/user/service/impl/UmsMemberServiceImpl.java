@@ -38,12 +38,12 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
     }
 
     @Override
-    public UmsMember login(UmsMember umsMember) {
+    public UmsMember login(String userName, String passWord) {
         Jedis jedis = null;
         try {
             jedis = redisUtil.getJedis();
             if (jedis != null) {
-                String userMemberStr = jedis.get("user:" + umsMember.getPassword() + ":password");
+                String userMemberStr = jedis.get("user:" + passWord + ":password");
                 if (StringUtil.isNotBlank(userMemberStr)) {
                     //密码正确
                     UmsMember memberFromCache = JSON.parseObject(userMemberStr, UmsMember.class);
@@ -51,7 +51,7 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
                 }
             }
             //链接redis失败，开启数据库
-            UmsMember memberFromDb = loginFromDb(umsMember);
+            UmsMember memberFromDb = loginFromDb(userName, passWord);
             if (memberFromDb != null) {
                 jedis.setex("user:" + memberFromDb.getPassword() + ":info", 60 * 60 * 24, JSON.toJSONString(memberFromDb));
             }
@@ -64,10 +64,23 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
         return null;
     }
 
-    private UmsMember loginFromDb(UmsMember umsMember) {
+    @Override
+    public void addToken(String token, String memberId) {
+        Jedis jedis = null;
+        try {
+            jedis = redisUtil.getJedis();
+            jedis.setex("user:" + memberId + ":token", 60 * 60 * 2, token);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            jedis.close();
+        }
+    }
+
+    private UmsMember loginFromDb(String userName, String passWord) {
         QueryWrapper<UmsMember> wrapper = new QueryWrapper<>();
-        wrapper.eq("username", umsMember.getUsername());
-        wrapper.eq("password", umsMember.getPassword());
+        wrapper.eq("username", userName);
+        wrapper.eq("password", passWord);
         UmsMember member = umsMemberMapper.selectOne(wrapper);
         return member;
     }
