@@ -26,14 +26,15 @@ public class UmsMemberController {
     UmsMemberService umsMemberService;
 
     @RequestMapping("allMembers")
-    public List<UmsMember> allMembers(){
-        List<UmsMember> umsMembers=umsMemberService.selectAllMember();
+    public List<UmsMember> allMembers() {
+        List<UmsMember> umsMembers = umsMemberService.selectAllMember();
         return umsMembers;
     }
 
     @RequestMapping("login")
-    public UmsMember login(@RequestBody UmsMember umsMember){
-        return null;
+    public UmsMember login(@RequestBody UmsMember umsMember) {
+        UmsMember member = umsMemberService.login(umsMember);
+        return member;
     }
 
 }
