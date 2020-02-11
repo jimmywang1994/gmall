@@ -44,4 +44,14 @@ public class UmsMemberController {
         umsMemberService.addToken(token, memberId);
     }
 
+    @RequestMapping("addOauthUser")
+    public void addOauthUser(@RequestBody UmsMember umsMember) {
+        umsMemberService.addOauthUser(umsMember);
+    }
+
+    @RequestMapping("checkOauthUser")
+    public UmsMember checkOauthUser(@RequestParam("sourceUid") String sourceUid) {
+        return umsMemberService.checkOauthUser(sourceUid);
+    }
+
 }

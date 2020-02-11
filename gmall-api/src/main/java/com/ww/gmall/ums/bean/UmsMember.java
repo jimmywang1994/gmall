@@ -61,9 +61,9 @@ public class UmsMember implements Serializable {
     @TableField("icon")
     private String icon;
 
-    @ApiModelProperty(value = "性别：0->未知；1->男；2->女")
+    @ApiModelProperty(value = "性别：n->未知；m->男；f->女")
     @TableField("gender")
-    private Integer gender;
+    private String gender;
 
     @ApiModelProperty(value = "生日")
     @TableField("birthday")
@@ -85,6 +85,10 @@ public class UmsMember implements Serializable {
     @TableField("source_type")
     private Integer sourceType;
 
+    @ApiModelProperty(value = "用户来源")
+    @TableField("source_uid")
+    private String sourceUid;
+
     @ApiModelProperty(value = "积分")
     @TableField("integration")
     private Integer integration;
@@ -101,5 +105,12 @@ public class UmsMember implements Serializable {
     @TableField("history_integration")
     private Integer historyIntegration;
 
+    @ApiModelProperty(value = "access_code码")
+    @TableField("access_code")
+    private String accessCode;
+
+    @ApiModelProperty(value = "access_token")
+    @TableField("access_token")
+    private String accessToken;
 
 }

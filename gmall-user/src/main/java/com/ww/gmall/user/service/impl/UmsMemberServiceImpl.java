@@ -70,11 +70,24 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
         try {
             jedis = redisUtil.getJedis();
             jedis.setex("user:" + memberId + ":token", 60 * 60 * 2, token);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             jedis.close();
         }
+    }
+
+    @Override
+    public void addOauthUser(UmsMember umsMember) {
+        umsMemberMapper.insert(umsMember);
+    }
+
+    @Override
+    public UmsMember checkOauthUser(String sourceUid) {
+        QueryWrapper<UmsMember> wrapper = new QueryWrapper<>();
+        wrapper.eq("source_uid", sourceUid);
+        UmsMember umsMember = umsMemberMapper.selectOne(wrapper);
+        return umsMember;
     }
 
     private UmsMember loginFromDb(String userName, String passWord) {

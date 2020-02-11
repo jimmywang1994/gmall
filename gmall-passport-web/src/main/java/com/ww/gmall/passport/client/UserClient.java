@@ -25,4 +25,20 @@ public interface UserClient {
      */
     @RequestMapping("/user/ums-member/addToken")
     void addToken(@RequestParam("token") String token, @RequestParam("memberId") String memberId);
+
+    /**
+     * 社交用户登录新增用户
+     * @param umsMember
+     */
+    @RequestMapping("/user/ums-member/addOauthUser")
+    void addOauthUser(@RequestBody UmsMember umsMember);
+
+    /**
+     * 社交用户登录检查是否存在该用户
+     * @param sourceUid
+     * @return
+     */
+    @RequestMapping("/user/ums-member/checkOauthUser")
+    UmsMember checkOauthUser(@RequestParam("sourceUid") String sourceUid);
+
 }
