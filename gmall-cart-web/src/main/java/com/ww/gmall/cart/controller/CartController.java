@@ -31,18 +31,13 @@ public class CartController {
     CartClient cartClient;
 
     /**
-     * 跳转结算页
-     *
+     * 添加购物车
+     * @param skuId
+     * @param quantity
+     * @param request
+     * @param response
      * @return
      */
-    @RequestMapping("toTrade")
-    @LoginRequired(loginSuccess = true)
-    public String toTrade(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
-        String memberId = (String) request.getAttribute("memberId");
-        String nickname = (String) request.getAttribute("nickname");
-        return "toTradeTest";
-    }
-
     @RequestMapping("addToCart")
     @LoginRequired(loginSuccess = false)
     public String addToCart(@RequestParam("skuId") String skuId, int quantity, HttpServletRequest request, HttpServletResponse response) {
@@ -110,6 +105,12 @@ public class CartController {
         return "redirect:/success.html";
     }
 
+    /**
+     * 购物车列表
+     * @param request
+     * @param modelMap
+     * @return
+     */
     @RequestMapping("cartList")
     public String cartList(HttpServletRequest request, ModelMap modelMap) {
         String memberId = (String) request.getAttribute("memberId");

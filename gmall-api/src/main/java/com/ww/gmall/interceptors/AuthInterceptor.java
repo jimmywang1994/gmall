@@ -19,6 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
+/**
+ * 拦截器拦截用户登录认证
+ */
 public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -44,6 +47,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         //获得该请求是否必须登录成功
         boolean loginSuccess = methodAnnotation.loginSuccess();
         //调用认证中心验证
+        //验证成功与否标识
         String success = "fail";
         Map<String, String> successMap = new HashMap<>();
         //如果token不为空，去认证中心验证token是否正确

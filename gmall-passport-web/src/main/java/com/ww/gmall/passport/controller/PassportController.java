@@ -80,7 +80,9 @@ public class PassportController {
             ip = remoteAddr;
         }
         //按照设计的算法对参数进行加密后，生成token
+        //公共key
         String key = DigestUtils.md5DigestAsHex(CommonContant.ACCESS_KEY.getBytes());
+        //盐值
         String salt = DigestUtils.md5DigestAsHex(ip.getBytes());
         token = JwtUtil.encode(key, map, salt);
         //将token存入redis
@@ -88,6 +90,13 @@ public class PassportController {
         return "redirect:http://search.gmall.com:8050/index?token=" + token;
     }
 
+    /**
+     * 登录方法
+     * @param userName
+     * @param passWord
+     * @param request
+     * @return
+     */
     @RequestMapping("login")
     @ResponseBody
     public String login(@RequestParam("username") String userName,
@@ -123,6 +132,12 @@ public class PassportController {
         return token;
     }
 
+    /**
+     * 验证token真假
+     * @param token
+     * @param currentIp
+     * @return
+     */
     @RequestMapping("verify")
     @ResponseBody
     public String verify(@RequestParam("token") String token, String currentIp) {

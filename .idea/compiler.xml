@@ -8,11 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="gmall-search-service" />
         <module name="gmall-eureka-server" />
+        <module name="gmall-item-web" />
         <module name="gmall-redisson-test" />
-        <module name="gmall-plugin" />
+        <module name="gmall-order-service" />
         <module name="fastdfs-client-java" />
         <module name="gmall-cart-service" />
         <module name="gmall-api" />
+        <module name="gmall-order-web" />
         <module name="gmall-boot-admin" />
         <module name="gmall-pms" />
         <module name="gmall-passport-web" />
@@ -20,7 +22,7 @@
         <module name="gmall-cart-web" />
         <module name="gmall-search-web" />
         <module name="gmall-user" />
-        <module name="gmall-item-web" />
+        <module name="gmall-plugin" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -41,6 +43,8 @@
       <module name="gmall-cart-web" options="-parameters" />
       <module name="gmall-eureka-server" options="-parameters" />
       <module name="gmall-item-web" options="-parameters" />
+      <module name="gmall-order-service" options="-parameters" />
+      <module name="gmall-order-web" options="-parameters" />
       <module name="gmall-passport-web" options="-parameters" />
       <module name="gmall-plugin" options="-parameters" />
       <module name="gmall-pms" options="-parameters" />

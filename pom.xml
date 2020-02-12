@@ -27,6 +27,8 @@
         <module>gmall-cart-service</module>
         <module>gmall-cart-web</module>
         <module>gmall-passport-web</module>
+        <module>gmall-order-web</module>
+        <module>gmall-order-service</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

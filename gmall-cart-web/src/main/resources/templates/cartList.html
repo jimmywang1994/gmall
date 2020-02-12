@@ -149,7 +149,7 @@
 <script type="text/javascript">
 
     function toTrade() {
-        window.location.href = "http://cart.gmall.com:8087/toTrade";
+        window.location.href = "http://order.gmall.com:9090/toTrade";
     }
 
     function toItem(skuId) {
@@ -157,8 +157,8 @@
     }
 
     function login() {
-        var s = encodeURIComponent("http://cart.gmall.com:8087/cartList");
-        window.location.href = "http://passport.atguigu.com/index?originUrl=" + s;
+        var s = encodeURIComponent("http://cart.gmall.com:8030/cartList");
+        window.location.href = "http://passport.gmall.com/index?ReturnUrl=" + s;
     }
 
     function checkSku(chkbox) {
