@@ -2,6 +2,7 @@ package com.ww.gmall.user.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ww.gmall.ums.bean.UmsAdminPermissionRelation;
+import com.ww.gmall.ums.service.UmsAdminPermissionRelationService;
 import com.ww.gmall.user.mapper.UmsAdminPermissionRelationMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,6 @@ import org.springframework.stereotype.Service;
  * @since 2020-01-09
  */
 @Service
-public class UmsAdminPermissionRelationServiceImpl extends ServiceImpl<UmsAdminPermissionRelationMapper, UmsAdminPermissionRelation> implements IService<UmsAdminPermissionRelation> {
+public class UmsAdminPermissionRelationServiceImpl extends ServiceImpl<UmsAdminPermissionRelationMapper, UmsAdminPermissionRelation> implements UmsAdminPermissionRelationService {
 
 }

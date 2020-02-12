@@ -60,6 +60,7 @@ public class CartItemServiceImpl extends ServiceImpl<CartItemMapper, CartItem> i
                 map.put(item.getProductSkuId(), JSON.toJSONString(item));
             }
             jedis.del("user:" + memberId + ":cart");
+            //redis的hashMap结构
             jedis.hmset("user:" + memberId + ":cart", map);
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,6 +71,7 @@ public class CartItemServiceImpl extends ServiceImpl<CartItemMapper, CartItem> i
     public List<CartItem> cartList(String memberId) {
         List<CartItem> cartItemList = new ArrayList<>();
         try (Jedis jedis = redisUtil.getJedis()) {
+            //redis中是否有该键的值
             List<String> hvals = jedis.hvals("user:" + memberId + ":cart");
             if (hvals != null) {
                 for (String hval : hvals) {

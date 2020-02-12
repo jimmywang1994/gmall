@@ -86,10 +86,10 @@
 			<div class="to_right">
 				<h5>商家：自营</h5>
 				<!--图片-->
-				<div class="yun1" th:each="orderDetail:${orderDetailList}"  >
-					<img  th:src="${orderDetail.imgUrl}" class="yun"/>
+				<div class="yun1" th:each="orderDetail:${orderItemList}"  >
+					<img  th:src="${orderDetail.productPic}" class="yun"/>
 					<div class="mi">
-						<div><p style="width: 500px;" th:text="${orderDetail.skuName}" >商品名称111111111111 </p> <span style="float: right"> <span align="center" style="color: red" >   </span> <span   th:text="'X '+${orderDetail.skuNum}"> X 1   </span> <span  >有货</span>  <span  >无货</span>  </span> </div>
+						<div><p style="width: 500px;" th:text="${orderDetail.productName}" >商品名称111111111111 </p> <span style="float: right"> <span align="center" style="color: red" >   </span> <span   th:text="'X '+${orderDetail.skuNum}"> X 1   </span> <span  >有货</span>  <span  >无货</span>  </span> </div>
 
 					</div>
 				</div>

@@ -1,8 +1,14 @@
 package com.ww.gmall.user.controller;
 
 
+import com.ww.gmall.ums.bean.UmsMemberReceiveAddress;
+import com.ww.gmall.ums.service.UmsMemberReceiveAddressService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,4 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user/ums-member-receive-address")
 public class UmsMemberReceiveAddressController {
 
+    @Autowired
+    UmsMemberReceiveAddressService umsMemberReceiveAddressService;
+
+    @RequestMapping("allReceiveAddress")
+    public List<UmsMemberReceiveAddress> allReceiveAddress(@RequestParam("memberId") String memberId) {
+        List<UmsMemberReceiveAddress> umsMemberReceiveAddressList = umsMemberReceiveAddressService.umsMemberReceiveAddressList(memberId);
+        return umsMemberReceiveAddressList;
+    }
 }
