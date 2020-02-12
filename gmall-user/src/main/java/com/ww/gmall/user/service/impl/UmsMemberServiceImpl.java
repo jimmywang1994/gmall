@@ -78,8 +78,9 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
     }
 
     @Override
-    public void addOauthUser(UmsMember umsMember) {
+    public UmsMember addOauthUser(UmsMember umsMember) {
         umsMemberMapper.insert(umsMember);
+        return checkOauthUser(umsMember.getSourceUid());
     }
 
     @Override

@@ -31,7 +31,7 @@ public interface UserClient {
      * @param umsMember
      */
     @RequestMapping("/user/ums-member/addOauthUser")
-    void addOauthUser(@RequestBody UmsMember umsMember);
+    UmsMember addOauthUser(@RequestBody UmsMember umsMember);
 
     /**
      * 社交用户登录检查是否存在该用户

@@ -29,7 +29,13 @@ public class PassportController {
     UserClient userClient;
 
     @RequestMapping("index")
-    public String index(@RequestParam("code") String code, HttpServletRequest request, ModelMap modelMap) {
+    public String index(@RequestParam(value = "ReturnUrl", required = false) String returnUrl, ModelMap modelMap) {
+        modelMap.put("ReturnUrl", returnUrl);
+        return "index";
+    }
+
+    @RequestMapping("vlogin")
+    public String vlogin(@RequestParam("code") String code, HttpServletRequest request, ModelMap modelMap) {
         //通过获得的code向第三方平台换取access_token
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put("client_id", CommonContant.CLIENT_ID);
@@ -56,7 +62,7 @@ public class PassportController {
         umsMember.setGender(userMap.get("gender"));
         UmsMember memberCheck = userClient.checkOauthUser(umsMember.getSourceUid());
         if (memberCheck == null) {
-            userClient.addOauthUser(umsMember);
+            umsMember = userClient.addOauthUser(umsMember);
         } else {
             umsMember = memberCheck;
         }
@@ -80,12 +86,6 @@ public class PassportController {
         //将token存入redis
         userClient.addToken(token, memberId);
         return "redirect:http://search.gmall.com:8050/index?token=" + token;
-    }
-
-    @RequestMapping("vlogin")
-    public String vlogin(@RequestParam(value = "ReturnUrl", required = false) String returnUrl, ModelMap modelMap) {
-        modelMap.put("ReturnUrl", returnUrl);
-        return "index";
     }
 
     @RequestMapping("login")
