@@ -1,5 +1,6 @@
 package com.ww.gmall.order.controller;
 
+import com.ww.gmall.Contants.CommonContant;
 import com.ww.gmall.annotation.LoginRequired;
 import com.ww.gmall.oms.bean.CartItem;
 import com.ww.gmall.oms.bean.OrderItem;
@@ -58,14 +59,39 @@ public class OrderController {
         modelMap.put("userAddressList", umsMemberReceiveAddressList);
         BigDecimal totalAmount = AmountUtil.getTotalAmount(cartItemList);
         modelMap.put("totalAmount", totalAmount);
+        //生成交易码
+        String tradeCode = cartClient.genTradeCode(memberId);
+        modelMap.put("tradeCode", tradeCode);
         return "trade";
     }
 
+    /**
+     * 提交订单
+     *
+     * @param receiveAddressId
+     * @param totalAmount
+     * @param request
+     * @param response
+     * @param modelMap
+     * @return
+     */
     @RequestMapping("submitOrder")
     @LoginRequired(loginSuccess = true)
     public String submitOrder(@RequestParam("receiveAddressId") String receiveAddressId, @RequestParam("totalAmount") BigDecimal totalAmount,
+                              @RequestParam("tradeCode") String tradeCode,
                               HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
-
+        String memberId = (String) request.getAttribute("memberId");
+        //检查交易码
+        String success = cartClient.checkTradeCode(memberId,tradeCode);
+        if(success.equals(CommonContant.SUCCESS)){
+            //根据用户id获得要购买的商品列表(购物车)
+            //将订单和订单详情写入数据库
+            //删除购物车对应商品
+            //重定向到支付系统
+        }
+        else{
+            return "tradeFail";
+        }
         return null;
     }
 }

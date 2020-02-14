@@ -8,8 +8,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="gmall-search-service" />
         <module name="gmall-eureka-server" />
+        <module name="gmall-item-web" />
         <module name="gmall-redisson-test" />
-        <module name="gmall-plugin" />
         <module name="gmall-order-service" />
         <module name="fastdfs-client-java" />
         <module name="gmall-cart-service" />
@@ -22,7 +22,7 @@
         <module name="gmall-cart-web" />
         <module name="gmall-search-web" />
         <module name="gmall-user" />
-        <module name="gmall-item-web" />
+        <module name="gmall-plugin" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

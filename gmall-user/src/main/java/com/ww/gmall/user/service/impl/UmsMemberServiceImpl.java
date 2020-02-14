@@ -43,7 +43,7 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
         try {
             jedis = redisUtil.getJedis();
             if (jedis != null) {
-                String userMemberStr = jedis.get("user:" + passWord + ":password");
+                String userMemberStr = jedis.get("user:" + userName + passWord + ":info");
                 if (StringUtil.isNotBlank(userMemberStr)) {
                     //密码正确
                     UmsMember memberFromCache = JSON.parseObject(userMemberStr, UmsMember.class);
@@ -53,7 +53,7 @@ public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember
             //链接redis失败，开启数据库
             UmsMember memberFromDb = loginFromDb(userName, passWord);
             if (memberFromDb != null) {
-                jedis.setex("user:" + memberFromDb.getPassword() + ":info", 60 * 60 * 24, JSON.toJSONString(memberFromDb));
+                jedis.setex("user:" + memberFromDb.getUsername() + memberFromDb.getPassword() + ":info", 60 * 60 * 24, JSON.toJSONString(memberFromDb));
             }
             return memberFromDb;
         } catch (Exception e) {

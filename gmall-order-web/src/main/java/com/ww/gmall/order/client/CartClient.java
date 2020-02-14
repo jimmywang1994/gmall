@@ -11,4 +11,11 @@ import java.util.List;
 public interface CartClient {
     @RequestMapping("/oms/cart-item/cartList")
     List<CartItem> cartList(@RequestParam("memberId") String memberId);
+
+    @RequestMapping("/oms/order/genTradeCode")
+    String genTradeCode(@RequestParam("memberId")String memberId);
+
+    @RequestMapping("/oms/order/checkTradeCode")
+    String checkTradeCode(@RequestParam("memberId")String memberId,@RequestParam("tradeCode")String tradeCode);
+
 }

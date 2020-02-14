@@ -12,5 +12,18 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-02-05
  */
 public interface OrderService extends IService<Order> {
+    /**
+     * 生成校验码
+     * @param memberId
+     * @return
+     */
+    String genTradeCode(String memberId);
 
+    /**
+     * 检查校验码
+     * @param memberId
+     * @param tradeCode
+     * @return
+     */
+    String checkTradeCode(String memberId,String tradeCode);
 }
