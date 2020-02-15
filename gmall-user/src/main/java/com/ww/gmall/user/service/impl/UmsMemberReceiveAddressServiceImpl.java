@@ -32,4 +32,10 @@ public class UmsMemberReceiveAddressServiceImpl extends ServiceImpl<UmsMemberRec
         List<UmsMemberReceiveAddress> umsMemberReceiveAddressList=umsMemberReceiveAddressMapper.selectList(wrapper);
         return umsMemberReceiveAddressList;
     }
+
+    @Override
+    public UmsMemberReceiveAddress umsMemberReceiveAddress(String receiveAddressId) {
+        UmsMemberReceiveAddress umsMemberReceiveAddress=umsMemberReceiveAddressMapper.selectById(receiveAddressId);
+        return umsMemberReceiveAddress;
+    }
 }

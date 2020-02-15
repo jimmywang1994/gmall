@@ -1,5 +1,6 @@
 package com.ww.gmall.util;
 
+import com.ww.gmall.Constants.CommonConstant;
 import com.ww.gmall.oms.bean.CartItem;
 
 import java.math.BigDecimal;
@@ -10,7 +11,7 @@ public class AmountUtil {
         BigDecimal totalAmount = new BigDecimal("0");
         for (CartItem cartItem : cartItemList) {
             BigDecimal totalPrice = cartItem.getTotalPrice();
-            if (cartItem.getIsChecked().equals("1")) {
+            if (cartItem.getIsChecked().equals(CommonConstant.TRUE)) {
                 totalAmount = totalAmount.add(totalPrice);
             }
         }

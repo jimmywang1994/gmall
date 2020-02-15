@@ -8,6 +8,7 @@ import com.ww.gmall.pms.service.SkuInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,8 +34,8 @@ public class SkuInfoController {
     }
 
     @RequestMapping("skuById/{skuId}")
-    public SkuInfo skuById(@PathVariable("skuId") String skuId,String ip) {
-        SkuInfo skuInfo = skuInfoService.skuById(skuId,ip);
+    public SkuInfo skuById(@PathVariable("skuId") String skuId, String ip) {
+        SkuInfo skuInfo = skuInfoService.skuById(skuId, ip);
         return skuInfo;
     }
 
@@ -56,7 +57,12 @@ public class SkuInfoController {
     }
 
     @RequestMapping("getAllSku")
-    public List<SkuInfo> getAllSku(@RequestParam("catalog3Id")String catalog3Id){
+    public List<SkuInfo> getAllSku(@RequestParam("catalog3Id") String catalog3Id) {
         return skuInfoService.getAllSku(catalog3Id);
+    }
+
+    @RequestMapping("checkPrice")
+    public boolean checkPrice(@RequestParam("skuId") String skuId, @RequestParam("price") BigDecimal price) {
+        return skuInfoService.checkPrice(skuId, price);
     }
 }

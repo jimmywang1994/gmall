@@ -30,4 +30,9 @@ public class UmsMemberReceiveAddressController {
         List<UmsMemberReceiveAddress> umsMemberReceiveAddressList = umsMemberReceiveAddressService.umsMemberReceiveAddressList(memberId);
         return umsMemberReceiveAddressList;
     }
+
+    @RequestMapping("getReceiveAddressById")
+    public UmsMemberReceiveAddress umsMemberReceiveAddress(@RequestParam("receiveAddressId") String receiveAddressId) {
+        return umsMemberReceiveAddressService.umsMemberReceiveAddress(receiveAddressId);
+    }
 }

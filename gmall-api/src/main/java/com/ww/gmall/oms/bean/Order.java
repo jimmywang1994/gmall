@@ -7,6 +7,9 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.List;
+
+import com.ww.gmall.pms.bean.SkuImage;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -204,5 +207,6 @@ public class Order implements Serializable {
     @TableField("modify_time")
     private Date modifyTime;
 
-
+    @TableField(exist = false)
+    private List<OrderItem> orderItemList;
 }

@@ -61,7 +61,7 @@ public class OrderItem implements Serializable {
 
     @ApiModelProperty(value = "购买数量")
     @TableField("product_quantity")
-    private Integer productQuantity;
+    private BigDecimal productQuantity;
 
     @ApiModelProperty(value = "商品sku编号")
     @TableField("product_sku_id")

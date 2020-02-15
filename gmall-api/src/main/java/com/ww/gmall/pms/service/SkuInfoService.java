@@ -5,6 +5,7 @@ import com.ww.gmall.pms.bean.SkuInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ww.gmall.pms.bean.SkuInfoParam;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -28,5 +29,13 @@ public interface SkuInfoService extends IService<SkuInfo> {
      * @return
      */
     List<SkuInfo> getAllSku(String catalog3Id);
+
+    /**
+     * 校验订单中商品的价格
+     * @param skuId
+     * @param price
+     * @return
+     */
+    boolean checkPrice(String skuId, BigDecimal price);
 
 }

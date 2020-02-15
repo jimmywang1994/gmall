@@ -11,4 +11,7 @@ import java.util.List;
 public interface UserClient {
     @RequestMapping("/user/ums-member-receive-address/allReceiveAddress")
     public List<UmsMemberReceiveAddress> allReceiveAddress(@RequestParam("memberId") String memberId);
+
+    @RequestMapping("/user/ums-member-receive-address/getReceiveAddressById")
+    public UmsMemberReceiveAddress umsMemberReceiveAddress(@RequestParam("receiveAddressId") String receiveAddressId);
 }

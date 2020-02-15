@@ -1,8 +1,7 @@
 package com.ww.gmall.passport.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.netflix.discovery.converters.Auto;
-import com.ww.gmall.Contants.CommonContant;
+import com.ww.gmall.Constants.CommonConstant;
 import com.ww.gmall.passport.client.UserClient;
 import com.ww.gmall.ums.bean.UmsMember;
 import com.ww.gmall.util.HttpClientUtil;
@@ -12,14 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.DigestUtils;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.crypto.spec.OAEPParameterSpec;
 import javax.servlet.http.HttpServletRequest;
-import javax.sound.midi.Soundbank;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,11 +34,11 @@ public class PassportController {
     public String vlogin(@RequestParam("code") String code, HttpServletRequest request, ModelMap modelMap) {
         //通过获得的code向第三方平台换取access_token
         Map<String, String> paramMap = new HashMap<>();
-        paramMap.put("client_id", CommonContant.CLIENT_ID);
-        paramMap.put("client_secret", CommonContant.CLIENT_SECRET);
+        paramMap.put("client_id", CommonConstant.CLIENT_ID);
+        paramMap.put("client_secret", CommonConstant.CLIENT_SECRET);
         paramMap.put("grant_type", "authorization_code");
         paramMap.put("code", code);
-        paramMap.put("redirect_uri", CommonContant.REDIRECT_URI);
+        paramMap.put("redirect_uri", CommonConstant.REDIRECT_URI);
         String accessTokenJson = HttpClientUtil.doPost("https://api.weibo.com/oauth2/access_token", paramMap);
         Map<String, String> tokenJson = new HashMap<>();
         tokenJson = JSON.parseObject(accessTokenJson, Map.class);
@@ -81,7 +77,7 @@ public class PassportController {
         }
         //按照设计的算法对参数进行加密后，生成token
         //公共key
-        String key = DigestUtils.md5DigestAsHex(CommonContant.ACCESS_KEY.getBytes());
+        String key = DigestUtils.md5DigestAsHex(CommonConstant.ACCESS_KEY.getBytes());
         //盐值
         String salt = DigestUtils.md5DigestAsHex(ip.getBytes());
         token = JwtUtil.encode(key, map, salt);
@@ -120,7 +116,7 @@ public class PassportController {
                 ip = remoteAddr;
             }
             //按照设计的算法对参数进行加密后，生成token
-            String key = DigestUtils.md5DigestAsHex(CommonContant.ACCESS_KEY.getBytes());
+            String key = DigestUtils.md5DigestAsHex(CommonConstant.ACCESS_KEY.getBytes());
             String salt = DigestUtils.md5DigestAsHex(ip.getBytes());
             token = JwtUtil.encode(key, userMap, salt);
             //将token存入redis
@@ -144,15 +140,15 @@ public class PassportController {
         //通过jwt验证token真假
         Map<String, String> userMap = new HashMap<>();
         //按照设计的算法对参数进行加密后，生成token
-        String key = DigestUtils.md5DigestAsHex(CommonContant.ACCESS_KEY.getBytes());
+        String key = DigestUtils.md5DigestAsHex(CommonConstant.ACCESS_KEY.getBytes());
         String salt = DigestUtils.md5DigestAsHex(currentIp.getBytes());
         Map<String, Object> decode = JwtUtil.decode(token, key, salt);
         if (decode == null) {
-            userMap.put("status", CommonContant.FAILED);
+            userMap.put("status", CommonConstant.FAILED);
         } else {
             userMap.put("memberId", (String) decode.get("memberId"));
             userMap.put("nickname", (String) decode.get("nickname"));
-            userMap.put("status", CommonContant.SUCCESS);
+            userMap.put("status", CommonConstant.SUCCESS);
         }
         return JSON.toJSONString(userMap);
     }

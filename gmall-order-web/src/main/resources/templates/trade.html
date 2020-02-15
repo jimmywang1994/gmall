@@ -138,6 +138,7 @@
 
     $(function () {
 
+        $("#receiveAddressId").val($("[name='deliveryAddress']:checked").val());
         $("#submitButton").click(function () {
             console.log($("#orderForm").html());
             $("#orderForm").submit();

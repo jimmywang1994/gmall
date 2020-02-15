@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -147,9 +148,20 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> impl
             String skuId = skuInfo.getId().toString();
             QueryWrapper<SkuAttrValue> wrapper2 = new QueryWrapper<>();
             wrapper2.eq("sku_id", skuId);
-            List<SkuAttrValue> attrValueList=skuAttrValueMapper.selectList(wrapper2);
+            List<SkuAttrValue> attrValueList = skuAttrValueMapper.selectList(wrapper2);
             skuInfo.setSkuAttrValueList(attrValueList);
         }
         return allSkuInfo;
+    }
+
+    @Override
+    public boolean checkPrice(String skuId, BigDecimal price) {
+        boolean result = false;
+        SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
+        BigDecimal skuInfoPrice = skuInfo.getPrice();
+        if (price.compareTo(skuInfoPrice) == 0) {
+            result = true;
+        }
+        return result;
     }
 }

@@ -1,16 +1,20 @@
 package com.ww.gmall.cart.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ww.gmall.cart.mapper.OrderItemMapper;
 import com.ww.gmall.cart.mapper.OrderMapper;
 import com.ww.gmall.config.RedisUtil;
 import com.ww.gmall.oms.bean.Order;
+import com.ww.gmall.oms.bean.OrderItem;
 import com.ww.gmall.oms.service.OrderService;
 import jodd.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
+import java.math.BigDecimal;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -26,6 +30,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Autowired
     RedisUtil redisUtil;
+    @Autowired
+    OrderMapper orderMapper;
+    @Autowired
+    OrderItemMapper orderItemMapper;
 
     @Override
     public String genTradeCode(String memberId) {
@@ -55,7 +63,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             tradeKey = "user:" + memberId + ":tradeCode";
             tradeCodeFromCache = jedis.get(tradeKey);
             if (StringUtil.isNotBlank(tradeCodeFromCache) && tradeCodeFromCache.equals(tradeCode)) {
-                //检查通过后删除该交易码(lua脚本实现查到即删除)
+                //检查通过后删除该交易码(lua脚本实现查到即删除),目的是防止高并发状态下的交易码重复使用
                 //jedis.del(tradeKey);
                 String script = "if redis.call('get',KEYS[1])==ARGV[1] then return redis.call('del',KEYS[1]) else return 0 end";
                 Long eval = (Long) jedis.eval(script, Collections.singletonList(tradeKey), Collections.singletonList(tradeCode));
@@ -71,5 +79,19 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public void saveOrder(Order order) {
+        //保存订单
+        orderMapper.insert(order);
+        String orderId = order.getId().toString();
+        //保存订单详情
+        List<OrderItem> orderItemList = order.getOrderItemList();
+        for (OrderItem orderItem : orderItemList) {
+            orderItem.setOrderId(Long.parseLong(orderId));
+            orderItemMapper.insert(orderItem);
+            //删除购物车数据
+        }
     }
 }

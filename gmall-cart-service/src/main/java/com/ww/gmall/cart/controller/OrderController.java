@@ -1,8 +1,10 @@
 package com.ww.gmall.cart.controller;
 
 
+import com.ww.gmall.oms.bean.Order;
 import com.ww.gmall.oms.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,11 +25,16 @@ public class OrderController {
 
     @RequestMapping("/genTradeCode")
     public String genTradeCode(@RequestParam("memberId") String memberId) {
-        return null;
+        return orderService.genTradeCode(memberId);
     }
 
     @RequestMapping("/checkTradeCode")
-    public String checkTradeCode(@RequestParam("memberId") String memberId) {
-        return null;
+    public String checkTradeCode(@RequestParam("memberId") String memberId, @RequestParam("tradeCode") String tradeCode) {
+        return orderService.checkTradeCode(memberId, tradeCode);
+    }
+
+    @RequestMapping("/saveOrder")
+    public void saveOrder(@RequestBody Order order) {
+        orderService.saveOrder(order);
     }
 }

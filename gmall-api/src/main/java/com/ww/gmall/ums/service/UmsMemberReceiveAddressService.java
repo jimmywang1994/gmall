@@ -15,4 +15,6 @@ import java.util.List;
  */
 public interface UmsMemberReceiveAddressService extends IService<UmsMemberReceiveAddress> {
     List<UmsMemberReceiveAddress> umsMemberReceiveAddressList(String memberId);
+
+    UmsMemberReceiveAddress umsMemberReceiveAddress(String receiveAddressId);
 }

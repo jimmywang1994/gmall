@@ -1,10 +1,12 @@
 package com.ww.gmall.order.controller;
 
-import com.ww.gmall.Contants.CommonContant;
+import com.ww.gmall.Constants.CommonConstant;
 import com.ww.gmall.annotation.LoginRequired;
 import com.ww.gmall.oms.bean.CartItem;
+import com.ww.gmall.oms.bean.Order;
 import com.ww.gmall.oms.bean.OrderItem;
 import com.ww.gmall.order.client.CartClient;
+import com.ww.gmall.order.client.SkuClient;
 import com.ww.gmall.order.client.UserClient;
 import com.ww.gmall.ums.bean.UmsMemberReceiveAddress;
 import com.ww.gmall.util.AmountUtil;
@@ -17,7 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,6 +37,8 @@ public class OrderController {
     CartClient cartClient;
     @Autowired
     UserClient userClient;
+    @Autowired
+    SkuClient skuClient;
 
     /**
      * 跳转结算页
@@ -81,15 +88,75 @@ public class OrderController {
                               @RequestParam("tradeCode") String tradeCode,
                               HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
         String memberId = (String) request.getAttribute("memberId");
+        String nickname = (String) request.getAttribute("nickname");
         //检查交易码
-        String success = cartClient.checkTradeCode(memberId,tradeCode);
-        if(success.equals(CommonContant.SUCCESS)){
+        String success = cartClient.checkTradeCode(memberId, tradeCode);
+        //生成外部订单号
+        String outTradeNo = "gmall";
+        outTradeNo = outTradeNo + System.currentTimeMillis();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        outTradeNo = outTradeNo + sdf.format(new Date());
+        if (success.equals(CommonConstant.SUCCESS)) {
             //根据用户id获得要购买的商品列表(购物车)
+            List<OrderItem> orderItemList = new ArrayList<>();
+            //订单对象
+            Order order = new Order();
+            order.setAutoConfirmDay(7);
+            order.setCreateTime(new Date());
+            order.setMemberId(Long.parseLong(memberId));
+            order.setMemberUsername(nickname);
+            //外部订单号
+            order.setOrderSn(outTradeNo);
+            order.setPayAmount(totalAmount);
+            order.setOrderType(0);
+            UmsMemberReceiveAddress umsMemberReceiveAddress = userClient.umsMemberReceiveAddress(receiveAddressId);
+            order.setReceiverCity(umsMemberReceiveAddress.getCity());
+            order.setReceiverName(umsMemberReceiveAddress.getName());
+            order.setReceiverPhone(umsMemberReceiveAddress.getPhoneNumber());
+            order.setReceiverPostCode(umsMemberReceiveAddress.getPostCode());
+            order.setReceiverDetailAddress(umsMemberReceiveAddress.getDetailAddress());
+            order.setReceiverProvince(umsMemberReceiveAddress.getProvince());
+            order.setReceiverRegion(umsMemberReceiveAddress.getRegion());
+            Calendar calendar = Calendar.getInstance();
+            //当前日期加一天
+            calendar.add(Calendar.DATE, 1);
+            Date receiveDate = calendar.getTime();
+            order.setReceiveTime(receiveDate);
+            order.setSourceType(0);
+            order.setStatus(0);
+            order.setTotalAmount(totalAmount);
+            //购物车列表
+            List<CartItem> cartItemList = cartClient.cartList(memberId);
+            for (CartItem cartItem : cartItemList) {
+                if (cartItem.getIsChecked().equals(CommonConstant.TRUE)) {
+                    //获得订单详情列表
+                    OrderItem orderItem = new OrderItem();
+                    //验价
+                    boolean result = skuClient.checkPrice(cartItem.getProductSkuId(),cartItem.getPrice());
+                    if (!result) {
+                        return "tradeFail";
+                    }
+                    orderItem.setProductPic(cartItem.getProductPic());
+                    orderItem.setProductName(cartItem.getProductName());
+                    //生成外部订单号，用来和其他系统交互，防止重复
+                    orderItem.setOrderSn(outTradeNo);
+                    orderItem.setProductCategoryId(cartItem.getProductCategoryId());
+                    orderItem.setProductPrice(cartItem.getPrice());
+                    orderItem.setRealAmount(cartItem.getTotalPrice());
+                    orderItem.setProductQuantity(cartItem.getQuantity());
+                    orderItem.setProductSkuId(Long.parseLong(cartItem.getProductSkuId()));
+                    orderItem.setProductId(cartItem.getProductId().toString());
+
+                    orderItemList.add(orderItem);
+                }
+            }
+            order.setOrderItemList(orderItemList);
+            //验库存
             //将订单和订单详情写入数据库
+            cartClient.saveOrder(order);
             //删除购物车对应商品
             //重定向到支付系统
-        }
-        else{
+        } else {
             return "tradeFail";
         }
         return null;

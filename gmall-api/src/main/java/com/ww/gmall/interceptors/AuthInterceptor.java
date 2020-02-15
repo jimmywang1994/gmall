@@ -1,20 +1,17 @@
 package com.ww.gmall.interceptors;
 
 import com.alibaba.fastjson.JSON;
-import com.ww.gmall.Contants.CommonContant;
+import com.ww.gmall.Constants.CommonConstant;
 import com.ww.gmall.annotation.LoginRequired;
 import com.ww.gmall.util.CookieUtil;
 import com.ww.gmall.util.HttpClientUtil;
 import jodd.util.StringUtil;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-import sun.net.www.http.HttpClient;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.invoke.MethodHandle;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,7 +63,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         //是否必须登录
         if (loginSuccess) {
             //必须登录成功才能使用
-            if (!CommonContant.SUCCESS.equals(success)) {
+            if (!CommonConstant.SUCCESS.equals(success)) {
                 //重定向回passport登录
                 //returnUrl:原始请求路径
                 StringBuffer requestUrl = request.getRequestURL();
@@ -82,7 +79,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             }
         } else {
             //可以不登录，但必须验证token
-            if (CommonContant.SUCCESS.equals(success)) {
+            if (CommonConstant.SUCCESS.equals(success)) {
                 //需要将token携带的用户信息写入cookie
                 request.setAttribute("memberId", successMap.get("memberId"));
                 request.setAttribute("nickname", successMap.get("nickname"));
