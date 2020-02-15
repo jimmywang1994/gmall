@@ -29,6 +29,8 @@
         <module>gmall-passport-web</module>
         <module>gmall-order-web</module>
         <module>gmall-order-service</module>
+        <module>gmall-payment</module>
+        <module>gmall-payment-service</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
