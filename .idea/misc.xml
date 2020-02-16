@@ -13,6 +13,7 @@
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/gmall-admin-web/pom.xml" />
+        <option value="$PROJECT_DIR$/gmall-payment-service/pom.xml" />
         <option value="$PROJECT_DIR$/gmall-user-service/pom.xml" />
       </set>
     </option>

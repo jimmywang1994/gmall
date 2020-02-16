@@ -8,3 +8,4 @@ server.port=8020 passport-web模块
 server.port=8010 user-service模块
 server.port=9090 order-web模块
 server.port=9080 order-service模块
+server.port=9070 payment-web模块

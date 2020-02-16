@@ -1,4 +1,4 @@
-package com.ww.gmall.item;
+package com.ww.gmall;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -84,11 +85,12 @@ public class OrderController {
      */
     @RequestMapping("submitOrder")
     @LoginRequired(loginSuccess = true)
-    public String submitOrder(@RequestParam("receiveAddressId") String receiveAddressId, @RequestParam("totalAmount") BigDecimal totalAmount,
-                              @RequestParam("tradeCode") String tradeCode,
-                              HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
+    public ModelAndView submitOrder(@RequestParam("receiveAddressId") String receiveAddressId, @RequestParam("totalAmount") BigDecimal totalAmount,
+                                    @RequestParam("tradeCode") String tradeCode,
+                                    HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
         String memberId = (String) request.getAttribute("memberId");
         String nickname = (String) request.getAttribute("nickname");
+        ModelAndView mv = new ModelAndView();
         //检查交易码
         String success = cartClient.checkTradeCode(memberId, tradeCode);
         //生成外部订单号
@@ -132,9 +134,10 @@ public class OrderController {
                     //获得订单详情列表
                     OrderItem orderItem = new OrderItem();
                     //验价
-                    boolean result = skuClient.checkPrice(cartItem.getProductSkuId(),cartItem.getPrice());
+                    boolean result = skuClient.checkPrice(cartItem.getProductSkuId(), cartItem.getPrice());
                     if (!result) {
-                        return "tradeFail";
+                        mv.setViewName("tradeFail");
+                        return mv;
                     }
                     orderItem.setProductPic(cartItem.getProductPic());
                     orderItem.setProductName(cartItem.getProductName());
@@ -156,9 +159,13 @@ public class OrderController {
             cartClient.saveOrder(order);
             //删除购物车对应商品
             //重定向到支付系统
+            mv.setViewName("redirect:http://payment.gmall.com:9070");
+            mv.addObject("outTradeNo", outTradeNo);
+            mv.addObject("totalAmount", totalAmount);
+            return mv;
         } else {
-            return "tradeFail";
+            mv.setViewName("tradeFail");
+            return mv;
         }
-        return null;
     }
 }
