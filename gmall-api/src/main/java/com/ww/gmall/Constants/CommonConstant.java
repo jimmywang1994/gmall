@@ -8,5 +8,5 @@ public class CommonConstant {
     public static final String CLIENT_SECRET = "ac0eb43cdf81d0d8e27f25bd1e44230d";
     public static final String REDIRECT_URI = "passport.gmall.com:8020/vlogin";
     public static final String TRUE = "1";
-
+    public static final String ALIPAY_PRODUCT_CODE="FAST_INSTANT_TRADE_PAY";
 }

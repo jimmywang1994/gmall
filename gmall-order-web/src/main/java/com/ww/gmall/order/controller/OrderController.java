@@ -159,7 +159,7 @@ public class OrderController {
             cartClient.saveOrder(order);
             //删除购物车对应商品
             //重定向到支付系统
-            mv.setViewName("redirect:http://payment.gmall.com:9070");
+            mv.setViewName("redirect:http://payment.gmall.com:9070/index");
             mv.addObject("outTradeNo", outTradeNo);
             mv.addObject("totalAmount", totalAmount);
             return mv;
