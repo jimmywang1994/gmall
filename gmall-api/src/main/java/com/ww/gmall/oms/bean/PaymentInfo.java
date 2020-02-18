@@ -65,4 +65,5 @@ public class PaymentInfo implements Serializable {
     @ApiModelProperty(value = "创建时间")
     @TableField("callback_time")
     private Date callbackTime;
+
 }

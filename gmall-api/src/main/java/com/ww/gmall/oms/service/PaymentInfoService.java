@@ -5,4 +5,6 @@ import com.ww.gmall.oms.bean.PaymentInfo;
 
 public interface PaymentInfoService extends IService<PaymentInfo>{
     void savePaymentInfo(PaymentInfo paymentInfo);
+
+    void updatePaymentInfo(PaymentInfo paymentInfo);
 }

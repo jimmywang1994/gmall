@@ -37,4 +37,9 @@ public class OrderController {
     public void saveOrder(@RequestBody Order order) {
         orderService.saveOrder(order);
     }
+
+    @RequestMapping("/getOrderByOutTradeNo")
+    public Order getOrderByOutTradeNo(@RequestParam("outTradeNo") String outTradeNo) {
+       return orderService.getOrderByOutTradeNo(outTradeNo);
+    }
 }

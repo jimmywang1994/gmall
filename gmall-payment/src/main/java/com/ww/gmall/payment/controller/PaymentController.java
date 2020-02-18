@@ -6,7 +6,13 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.ww.gmall.Constants.CommonConstant;
 import com.ww.gmall.annotation.LoginRequired;
+import com.ww.gmall.oms.bean.Order;
+import com.ww.gmall.oms.bean.PaymentInfo;
+import com.ww.gmall.oms.service.OrderService;
+import com.ww.gmall.oms.service.PaymentInfoService;
+import com.ww.gmall.payment.client.OrderClient;
 import com.ww.gmall.payment.config.AlipayConfig;
+import jodd.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +30,10 @@ import java.util.Map;
 public class PaymentController {
     @Autowired
     AlipayClient alipayClient;
+    @Autowired
+    PaymentInfoService paymentInfoService;
+    @Autowired
+    OrderClient orderClient;
 
     @RequestMapping("index")
     @LoginRequired(loginSuccess = true)
@@ -47,6 +59,25 @@ public class PaymentController {
     @LoginRequired(loginSuccess = false)
     public String alipayCallbackReturn(HttpServletRequest request, ModelMap modelMap) {
         //更新用户支付状态
+        //回调请求中获得支付宝参数
+        String sign = request.getParameter("sign");
+        String tradeNo=request.getParameter("trade_no");
+        String outTradeNo=request.getParameter("out_trade_no");
+        String tradeStatus=request.getParameter("trade_status");
+        String totalAmount=request.getParameter("total_amount");
+        String subject=request.getParameter("subject");
+        String callback_content=request.getQueryString();
+        if(StringUtil.isNotBlank(sign)){
+            //验签成功
+            PaymentInfo paymentInfo=new PaymentInfo();
+            paymentInfo.setOrderSn(outTradeNo);
+            paymentInfo.setPaymentStatus("已支付");
+            paymentInfo.setAlipayTradeNo(tradeNo);//支付宝的交易凭证号
+            paymentInfo.setCallbackContent(callback_content);
+            paymentInfo.setCallbackTime(new Date());
+            paymentInfoService.updatePaymentInfo(paymentInfo);
+        }
+        //支付成功后，引起系统服务-》订单服务的更新—》库存服务-》物流服务
         return "finish";
     }
 
@@ -54,7 +85,7 @@ public class PaymentController {
     @LoginRequired(loginSuccess = true)
     @ResponseBody
     public String alipay(@RequestParam("outTradeNo") String outTradeNo,
-                         @RequestParam("totalAmount") String totalAmount,
+                         @RequestParam("totalAmount") BigDecimal totalAmount,
                          HttpServletRequest request, ModelMap modelMap) {
         //获得一个支付宝请求的客户端
         String form = null;
@@ -75,6 +106,17 @@ public class PaymentController {
             e.printStackTrace();
         }
         //生成并保存用户的支付状态
+        Order order = orderClient.getOrderByOutTradeNo(outTradeNo);
+        PaymentInfo paymentInfo = new PaymentInfo();
+        paymentInfo.setCreateTime(new Date());
+        paymentInfo.setOrderId(order.getId().toString());
+        paymentInfo.setOrderSn(outTradeNo);
+        paymentInfo.setPaymentStatus("未付款");
+        paymentInfo.setSubject("gmall商城商品一件");
+        paymentInfo.setTotalAmount(totalAmount);
+
+        paymentInfoService.savePaymentInfo(paymentInfo);
+
         //提交请求到支付宝
         return form;
     }

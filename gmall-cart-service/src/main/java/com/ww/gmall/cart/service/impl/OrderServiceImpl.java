@@ -1,5 +1,6 @@
 package com.ww.gmall.cart.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ww.gmall.cart.mapper.OrderItemMapper;
 import com.ww.gmall.cart.mapper.OrderMapper;
@@ -93,5 +94,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             orderItemMapper.insert(orderItem);
             //删除购物车数据
         }
+    }
+
+    @Override
+    public Order getOrderByOutTradeNo(String outTradeNo) {
+        QueryWrapper<Order> wrapper = new QueryWrapper<>();
+        wrapper.eq("order_sn", outTradeNo);
+        Order order = orderMapper.selectOne(wrapper);
+        return order;
     }
 }

@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 public interface OrderService extends IService<Order> {
     /**
      * 生成校验码
+     *
      * @param memberId
      * @return
      */
@@ -23,15 +24,19 @@ public interface OrderService extends IService<Order> {
 
     /**
      * 检查校验码
+     *
      * @param memberId
      * @param tradeCode
      * @return
      */
-    String checkTradeCode(String memberId,String tradeCode);
+    String checkTradeCode(String memberId, String tradeCode);
 
     /**
      * 保存订单
+     *
      * @param order
      */
     void saveOrder(Order order);
+
+    Order getOrderByOutTradeNo(String outTradeNo);
 }
