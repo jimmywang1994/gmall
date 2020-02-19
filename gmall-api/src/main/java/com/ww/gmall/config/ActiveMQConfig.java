@@ -1,16 +1,18 @@
-package com.ww.gmall.payment.config;
+package com.ww.gmall.config;
 
-import com.ww.gmall.payment.util.ActiveMQUtil;
+import com.ww.gmall.util.ActiveMQUtil;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 
 import javax.jms.JMSException;
 import javax.jms.Session;
 
 @Configuration
+@EnableJms
 public class ActiveMQConfig {
     @Value("${spring.activemq.broker-url:disabled}")
     String brokerURL ;
@@ -55,7 +57,7 @@ public class ActiveMQConfig {
             url=brokerURL;
         }*/
         ActiveMQConnectionFactory activeMQConnectionFactory =
-                new ActiveMQConnectionFactory(  brokerURL);
+                new ActiveMQConnectionFactory(brokerURL);
         return activeMQConnectionFactory;
     }
 

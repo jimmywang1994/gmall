@@ -7,7 +7,10 @@ import com.ww.gmall.cart.mapper.OrderMapper;
 import com.ww.gmall.config.RedisUtil;
 import com.ww.gmall.oms.bean.Order;
 import com.ww.gmall.oms.bean.OrderItem;
+import com.ww.gmall.oms.bean.PaymentInfo;
 import com.ww.gmall.oms.service.OrderService;
+import com.ww.gmall.util.ActiveMQUtil;
+import com.ww.gmall.util.SendMessageUtil;
 import jodd.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +38,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     OrderMapper orderMapper;
     @Autowired
     OrderItemMapper orderItemMapper;
+    @Autowired
+    ActiveMQUtil activeMQUtil;
 
     @Override
     public String genTradeCode(String memberId) {
@@ -102,5 +107,16 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         wrapper.eq("order_sn", outTradeNo);
         Order order = orderMapper.selectOne(wrapper);
         return order;
+    }
+
+    @Override
+    public void updateOrder(Order order) {
+        SendMessageUtil messageUtil = new SendMessageUtil();
+        QueryWrapper<Order> wrapper = new QueryWrapper<>();
+        wrapper.eq("order_sn", order.getOrderSn());
+        order.setStatus(1);
+        orderMapper.update(order, wrapper);
+        //发送一个订单已支付的消息，提供给库存消费
+        messageUtil.sendMsg("ORDER_PAY_QUEUE", null, null);
     }
 }

@@ -12,6 +12,7 @@ import com.ww.gmall.oms.service.OrderService;
 import com.ww.gmall.oms.service.PaymentInfoService;
 import com.ww.gmall.payment.client.OrderClient;
 import com.ww.gmall.payment.config.AlipayConfig;
+import com.ww.gmall.util.ActiveMQUtil;
 import jodd.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -78,6 +79,8 @@ public class PaymentController {
             paymentInfoService.updatePaymentInfo(paymentInfo);
         }
         //支付成功后，引起系统服务-》订单服务的更新—》库存服务-》物流服务
+        //调用mq发送支付成功的消息
+
         return "finish";
     }
 
@@ -116,7 +119,8 @@ public class PaymentController {
         paymentInfo.setTotalAmount(totalAmount);
 
         paymentInfoService.savePaymentInfo(paymentInfo);
-
+        //向mq发送一个检查支付状态(支付服务消费)的延迟消息队列
+        paymentInfoService.sendDelayPaymentResultCheckQueue(outTradeNo);
         //提交请求到支付宝
         return form;
     }

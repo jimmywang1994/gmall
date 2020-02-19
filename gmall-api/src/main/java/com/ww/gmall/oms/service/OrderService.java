@@ -15,7 +15,7 @@ import java.math.BigDecimal;
  */
 public interface OrderService extends IService<Order> {
     /**
-     * 生成校验码
+     * 生成校验码,用来防止多次重复提交订单
      *
      * @param memberId
      * @return
@@ -39,4 +39,6 @@ public interface OrderService extends IService<Order> {
     void saveOrder(Order order);
 
     Order getOrderByOutTradeNo(String outTradeNo);
+
+    void updateOrder(Order order);
 }
