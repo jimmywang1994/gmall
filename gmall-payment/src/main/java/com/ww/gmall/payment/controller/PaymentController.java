@@ -62,18 +62,19 @@ public class PaymentController {
         //更新用户支付状态
         //回调请求中获得支付宝参数
         String sign = request.getParameter("sign");
-        String tradeNo=request.getParameter("trade_no");
-        String outTradeNo=request.getParameter("out_trade_no");
-        String tradeStatus=request.getParameter("trade_status");
-        String totalAmount=request.getParameter("total_amount");
-        String subject=request.getParameter("subject");
-        String callback_content=request.getQueryString();
-        if(StringUtil.isNotBlank(sign)){
+        String tradeNo = request.getParameter("trade_no");
+        String outTradeNo = request.getParameter("out_trade_no");
+        String tradeStatus = request.getParameter("trade_status");
+        String totalAmount = request.getParameter("total_amount");
+        String subject = request.getParameter("subject");
+        String callback_content = request.getQueryString();
+        if (StringUtil.isNotBlank(sign)) {
             //验签成功
-            PaymentInfo paymentInfo=new PaymentInfo();
+            PaymentInfo paymentInfo = new PaymentInfo();
             paymentInfo.setOrderSn(outTradeNo);
             paymentInfo.setPaymentStatus("已支付");
-            paymentInfo.setAlipayTradeNo(tradeNo);//支付宝的交易凭证号
+            //支付宝的交易凭证号
+            paymentInfo.setAlipayTradeNo(tradeNo);
             paymentInfo.setCallbackContent(callback_content);
             paymentInfo.setCallbackTime(new Date());
             paymentInfoService.updatePaymentInfo(paymentInfo);
@@ -92,7 +93,8 @@ public class PaymentController {
                          HttpServletRequest request, ModelMap modelMap) {
         //获得一个支付宝请求的客户端
         String form = null;
-        AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();//创建API对应的request
+        //创建API对应的request
+        AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
         Map<String, Object> map = new HashMap<>();
         map.put("out_trade_no", outTradeNo);
         map.put("product_code", CommonConstant.ALIPAY_PRODUCT_CODE);
@@ -119,8 +121,8 @@ public class PaymentController {
         paymentInfo.setTotalAmount(totalAmount);
 
         paymentInfoService.savePaymentInfo(paymentInfo);
-        //向mq发送一个检查支付状态(支付服务消费)的延迟消息队列
-        paymentInfoService.sendDelayPaymentResultCheckQueue(outTradeNo);
+        //向mq发送一个检查支付状态(支付服务消费)的延迟消息队列,发送次数限制为5次
+        paymentInfoService.sendDelayPaymentResultCheckQueue(outTradeNo, 5);
         //提交请求到支付宝
         return form;
     }

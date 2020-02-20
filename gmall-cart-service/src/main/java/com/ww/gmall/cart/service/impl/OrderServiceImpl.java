@@ -114,9 +114,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         SendMessageUtil messageUtil = new SendMessageUtil();
         QueryWrapper<Order> wrapper = new QueryWrapper<>();
         wrapper.eq("order_sn", order.getOrderSn());
+        //更新订单状态为未发货
         order.setStatus(1);
-        orderMapper.update(order, wrapper);
         //发送一个订单已支付的消息，提供给库存消费
-        messageUtil.sendMsg("ORDER_PAY_QUEUE", null, null);
+        messageUtil.sendMsg("ORDER_PAY_QUEUE", null, order.getOrderSn(),-1);
+        orderMapper.update(order, wrapper);
     }
 }

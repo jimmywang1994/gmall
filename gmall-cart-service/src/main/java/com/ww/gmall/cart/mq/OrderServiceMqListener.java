@@ -10,6 +10,9 @@ import javax.jms.JMSException;
 import javax.jms.MapMessage;
 
 @Component
+/**
+ * 检查订单是否支付成功的消息消费者
+ */
 public class OrderServiceMqListener {
     @Autowired
     OrderService orderService;
