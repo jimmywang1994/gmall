@@ -1,6 +1,6 @@
 package com.atguigu.gware.mapper;
 
-import com.atguigu.gware.bean.WareSku;
+import com.ww.gmall.oms.bean.WareSku;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;

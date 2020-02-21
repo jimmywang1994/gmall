@@ -15,7 +15,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("wms_ware_sku")
+@TableName("ware_sku")
 public class WareSku {
 
     @TableId(value = "id", type = IdType.AUTO)

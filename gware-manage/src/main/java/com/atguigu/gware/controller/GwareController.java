@@ -2,11 +2,11 @@ package com.atguigu.gware.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializeConfig;
-import com.atguigu.gware.bean.WareInfo;
-import com.atguigu.gware.bean.WareOrderTask;
-import com.atguigu.gware.bean.WareSku;
 import com.atguigu.gware.enums.TaskStatus;
 import com.atguigu.gware.service.GwareService;
+import com.ww.gmall.oms.bean.WareInfo;
+import com.ww.gmall.oms.bean.WareOrderTask;
+import com.ww.gmall.oms.bean.WareSku;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

@@ -1,8 +1,8 @@
 package com.atguigu.gware.service;
 
-import com.atguigu.gware.bean.WareInfo;
-import com.atguigu.gware.bean.WareOrderTask;
-import com.atguigu.gware.bean.WareSku;
+import com.ww.gmall.oms.bean.WareInfo;
+import com.ww.gmall.oms.bean.WareOrderTask;
+import com.ww.gmall.oms.bean.WareSku;
 
 import java.util.List;
 import java.util.Map;

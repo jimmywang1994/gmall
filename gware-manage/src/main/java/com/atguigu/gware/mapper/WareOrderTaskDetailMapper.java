@@ -1,6 +1,6 @@
 package com.atguigu.gware.mapper;
 
-import com.atguigu.gware.bean.WareOrderTaskDetail;
+import com.ww.gmall.oms.bean.WareOrderTaskDetail;
 import tk.mybatis.mapper.common.Mapper;
 
 

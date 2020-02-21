@@ -5,7 +5,7 @@
         select  w.id,w.name,w.address,w.areacode from ware_info w,ware_sku s where sku_id=#{skuid} and w.id=s.warehouse_id
     </select>
 
-    <resultMap id="BaseResultMap" type="com.atguigu.gware.bean.WareInfo"  >
+    <resultMap id="BaseResultMap" type="com.ww.gmall.oms.bean.WareInfo"  >
         <id column="id" jdbcType="BIGINT" property="id" />
         <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="address" jdbcType="VARCHAR" property="address" />
