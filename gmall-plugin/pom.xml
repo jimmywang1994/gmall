@@ -16,7 +16,7 @@
         <dubbo.version>2.7.3</dubbo.version>
         <curator.version>4.2.0</curator.version>
         <jsoup.version>1.11.2</jsoup.version>
-        <httpclient.version>4.5.5</httpclient.version>
+        <httpclient.version>4.5.13</httpclient.version>
         <commons-lang3.version>3.7</commons-lang3.version>
         <jest.version>5.3.3</jest.version>
         <sharding-version>2.0.3</sharding-version>
